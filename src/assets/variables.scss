@@ -1,0 +1,42 @@
+/*
+ * Colors
+ * ========================================================================== */
+
+$white-base: #fff;
+$gray-light: #e2e2e2;
+$gray-normal: #aaa;
+$violet: #3b4167;
+$light-green: #89be00;
+$dark-green: #346641;
+
+/*
+ * Layout
+ * ========================================================================== */
+
+$max-content-width: 900px;
+$left-menu-width: 200px;
+$header-height: 70px;
+
+/*
+ * Media queries breakpoints
+ * ========================================================================== */
+
+$screen-xs-min: 480px;  /* Extra small screen / phone */
+$screen-sm-min: 768px;  /* Small screen / tablet */
+$screen-md-min: 992px;  /* Medium screen / desktop */
+$screen-lg-min: 1200px; /* Large screen / wide desktop */
+
+/*
+ * font-sizes
+ * ========================================================================== */
+
+$fz-big: 18px;
+$fz-middle: 16px;
+$fz-small: 12px;
+
+/*
+ * z-indexes
+ * ========================================================================== */
+
+$z-normal: 1;
+$z-header: 10;

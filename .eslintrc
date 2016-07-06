@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "react/jsx-no-bind": 0,
+    "react/sort-comp": 0,
+    "comma-dangle": [2, "never"],
+    "no-shadow": 0
+  },
+  "plugins": [
+    "react"
+  ]
+}

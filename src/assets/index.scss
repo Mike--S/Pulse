@@ -1,0 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,500,700&subset=latin,cyrillic);
+@import 'variables';
+
+body,
+h2,
+h3,
+p,
+button,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto';
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+.content {
+  padding-top: #{$header-height + 10px};
+  padding-left: #{$left-menu-width + 10px};
+}

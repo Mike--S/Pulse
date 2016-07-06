@@ -1,0 +1,49 @@
+@import '../../assets/variables';
+
+.button {
+  display: block;
+  position: relative;
+  background: darken($gray-light, 10%);
+  //border: 2px solid darken($gray-light, 20%);
+  box-shadow: 0 2px 1px 0 rgba(0,0,0,0.18), 0 4px 5px 0 rgba(0,0,0,0.15);
+  width: 100%;
+  border: 0;
+  border-radius: 2px;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-align: left;
+
+  &:hover {
+	background: darken($gray-light, 5%);;
+  }
+
+  &:active {
+	background: darken($gray-light, 20%);
+	color: $white-base;
+  }
+}
+
+.buttonEmphasized {
+  composes: button;
+  background: $violet;
+  color: #fff;
+
+  &:hover {
+	background: lighten($violet, 10%);
+  }
+
+  &:active {
+	background: darken($violet, 5%);
+  }
+}
+
+.buttonPushed {
+  box-shadow: 4px 4px 0 0 darken($gray-light, 30%);
+
+  &:active {
+	top: 4px;
+	left: 4px;
+	box-shadow: none;
+  }
+}
+

@@ -1,0 +1,24 @@
+@import '../../assets/variables';
+
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  height: $header-height;
+  background: $violet;
+  color: $white-base;
+  padding: 10px;
+  z-index: $z-header;
+
+
+  @media screen and (max-width: $screen-xs-min) {
+	height: auto;
+  }
+}
+
+.user {
+  font-size: $fz-big;
+}
+

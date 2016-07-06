@@ -1,0 +1,40 @@
+@import '../../assets/variables';
+
+$grid-columns: 12;
+$border-spacing: 5px;
+
+@mixin columns($from, $to) {
+  @for $i from $from through $to {
+	&#{$i} {
+	  width: 100% / $grid-columns * $i;
+	}
+  }
+}
+
+.container {
+  margin: 0 auto;
+  max-width: $max-content-width;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.col {
+  @include columns(1, $grid-columns);
+}
+
+.colSM {
+  @media screen and (max-width: $screen-md-min - 1) {
+	@include columns(1, $grid-columns);
+  }
+}
+
+.colXS {
+  @media screen and (max-width: $screen-sm-min - 1) {
+	@include columns(1, $grid-columns);
+  }
+}
