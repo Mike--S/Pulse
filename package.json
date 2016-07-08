@@ -20,7 +20,7 @@
   },
   "devEngines": {},
   "engines": {},
-  "devDependencies": {
+  "dependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.5.2",
@@ -60,9 +60,7 @@
     "webpack": "^1.12.13",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.7.1"
-  },
-  "dependencies": {
+    "webpack-hot-middleware": "^2.7.1",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "react-redux": "^4.4.5",
