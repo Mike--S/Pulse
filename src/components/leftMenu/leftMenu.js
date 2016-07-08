@@ -57,8 +57,8 @@ class TopMenu extends Component {
       return (
         <nav className={lm.leftMenu}>
           <input type="search" placeholder="Поиск"/>
-          <ButtonsBlock role={'Patient'} title={'Лечащий врач'} buttonTitles={doctors.therapist() || []} />
-          <ButtonsBlock role={'Patient'} title={'Врачи консультанты'} buttonTitles={doctors.consultants() || []} />
+          <ButtonsBlock role={'Patient'} title={'Лечащий врач'} buttonTitles={doctors.therapist || []} />
+          <ButtonsBlock role={'Patient'} title={'Врачи консультанты'} buttonTitles={doctors.consultants || []} />
           <Button options={{emphasize: true}}>Добавить врача</Button>
           <ButtonsBlock title={'Подключить услуги'} buttonTitles={this.state.services} />
         </nav>
