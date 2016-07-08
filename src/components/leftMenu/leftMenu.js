@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cssModules from 'react-css-modules';
-import getify from 'getify';
-
 import * as types from '../../actions/actionTypes';
 import * as patientActions from '../../actions/patient/leftMenu';
 
@@ -45,8 +43,8 @@ class TopMenu extends Component {
   render() {
     const { styles, patient } = this.props;
     let lm = styles[0];
-    let isFetching = getify(patient).isFetching();
-    let doctors = getify(this.props.patient).doctors;
+    let isFetching = patient && patient.isFetching;
+    let doctors = patient && patient.doctors;
 
     if (isFetching === undefined || isFetching) {
       return(
