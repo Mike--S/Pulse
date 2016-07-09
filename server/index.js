@@ -26,8 +26,8 @@ var bundler = new WebpackDevServer(compiler, {
   },
   proxy: {
     '*/api/*': {
-      target: 'http://localhost:8080',
-      secure: false
+      target: 'https://localhost:8080',
+      secure: true
     }
   },
   historyApiFallback: true
