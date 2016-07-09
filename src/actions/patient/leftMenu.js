@@ -2,7 +2,7 @@ import { CALL_API } from 'redux-api-middleware';
 import * as types from '../actionTypes';
 
 //const API_ROOT = 'https://localhost:8080/api/';
-const API_ROOT = 'https://rocky-dawn-46322.herokuapp.com';
+const API_ROOT = 'https://rocky-dawn-46322.herokuapp.com/api/';
 
 function fetchPatientData() {
   return {
