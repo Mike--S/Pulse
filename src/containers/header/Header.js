@@ -20,11 +20,11 @@ export default class Header extends Component {
     return (
       <header className={styles.header}>
         <Container fullH flex>
-          <Col md={4} xs={12}>
+          <Col md={4} xs={4/*12*/}>
             <div className={styles.user}>Еремин Виталий Викторович</div>
           </Col>
-          <Col md={2} xs={12}><Clock /></Col>
-          <Col md={6} xs={12}>
+          <Col md={2} xs={2/*12*/}><Clock /></Col>
+          <Col md={6} xs={6/*12*/}>
             <TopMenu />
           </Col>
         </Container>
