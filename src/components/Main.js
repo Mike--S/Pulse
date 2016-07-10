@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Header from '../components/header/Header';
-import LeftMenu from '../components/leftMenu/leftMenu';
+import LeftMenu from '../containers/leftMenu/leftMenu';
 import Container from '../containers/layout/container'
 import cssModules from 'react-css-modules';
 import styles from '../assets/index.scss';

@@ -6,9 +6,9 @@ import * as types from '../../actions/actionTypes';
 import * as patientActions from '../../actions/patient/leftMenu';
 
 import { Link } from 'react-router';
-import Button from '../button/button';
-import ButtonsBlock from './buttonsBlock';
-import MenuBlock from '../materialUi/dropMenu';
+import Button from '../../components/button/button';
+import ButtonsBlock from '../../components/leftMenu/buttonsBlock';
+import MenuBlock from '../../components/materialUi/dropMenu';
 
 import lm from './leftMenu.scss';
 import layout from '../../containers/layout/layout.scss';
