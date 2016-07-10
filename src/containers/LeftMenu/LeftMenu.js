@@ -8,6 +8,7 @@ import * as patientActions from '../../actions/patient/patient';
 import { Link } from 'react-router';
 import Button from '../../components/button/button';
 import ButtonsBlock from '../../components/leftMenu/buttonsBlock';
+import DropList from '../../components/leftMenu/dropList';
 import MenuBlock from '../../components/materialUi/dropMenu';
 
 import lm from './leftMenu.scss';
@@ -43,6 +44,7 @@ class TopMenu extends Component {
     let lm = styles[0];
     let isFetching = patient && patient.isFetching;
     let doctors = patient && patient.doctors;
+    let devices = patient && patient.devices;
 
     if (isFetching === undefined || isFetching) {
       return(
@@ -59,6 +61,7 @@ class TopMenu extends Component {
           <ButtonsBlock role={'Patient'} title={'Врачи консультанты'} buttonTitles={doctors.consultants || []} />
           <Button options={{emphasize: true}}>Добавить врача</Button>
           <ButtonsBlock title={'Подключить услуги'} buttonTitles={this.state.services} />
+          <DropList title="Устройства" devices={devices} buttonText="Добавить устройство" />
         </nav>
       );
     }

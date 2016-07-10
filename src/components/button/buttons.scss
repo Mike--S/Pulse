@@ -12,9 +12,10 @@
   padding: 5px 10px;
   cursor: pointer;
   text-align: left;
+  font-size: $fz-small;
 
   &:hover {
-	background: darken($gray-light, 5%);;
+	background: darken($gray-light, 5%);
   }
 
   &:active {

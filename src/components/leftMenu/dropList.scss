@@ -1,0 +1,22 @@
+@import "../../assets/variables";
+
+.title {
+  padding: 5px;
+  padding-left: 10px;
+  background: darken($gray-light, 10%);
+  border-radius: 2px 2px 0 0;
+  cursor: pointer;
+}
+
+.list {
+  background: lighten($gray-light, 5%);
+  padding: 10px 5px 10px 15px;
+}
+
+.device {
+  list-style: none;
+  font-size: $fz-small;
+  +.device {
+	margin-top: 5px;
+  }
+}
