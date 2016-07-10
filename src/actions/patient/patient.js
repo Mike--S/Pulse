@@ -7,7 +7,7 @@ const API_ROOT = 'https://rocky-dawn-46322.herokuapp.com/api/';
 function fetchPatientData() {
   return {
     [CALL_API]: {
-      endpoint: API_ROOT + 'patient',
+      endpoint: API_ROOT + 'login',
       method: 'GET',
       types: [
         {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cssModules from 'react-css-modules';
 import * as types from '../../actions/actionTypes';
-import * as patientActions from '../../actions/patient/leftMenu';
+import * as patientActions from '../../actions/patient/patient';
 
 import { Link } from 'react-router';
 import Button from '../../components/button/button';
