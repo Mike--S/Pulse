@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Header from '../components/header/Header';
+import Header from './header/Header';
 import LeftMenu from '../containers/leftMenu/leftMenu';
-import Container from '../containers/layout/container'
+import Container from '../components/layout/container'
 import cssModules from 'react-css-modules';
 import styles from '../assets/index.scss';
 

@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import cssModules from 'react-css-modules';
-import Container from '../../containers/layout/container';
-import Col from '../../containers/layout/col';
-import Clock from '../Clock';
-import TopMenu from '../topMenu/topMenu';
+import Container from '../../components/layout/container';
+import Col from '../../components/layout/col';
+import Clock from '../../components/Clock';
+import TopMenu from '../../components/topMenu/topMenu';
 import h from './header.scss';
 
 @cssModules(h)

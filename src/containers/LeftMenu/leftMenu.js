@@ -11,8 +11,6 @@ import ButtonsBlock from '../../components/leftMenu/buttonsBlock';
 import MenuBlock from '../../components/materialUi/dropMenu';
 
 import lm from './leftMenu.scss';
-import layout from '../../containers/layout/layout.scss';
-import utils from '../../assets/utils.scss';
 
 @cssModules([lm])
 class TopMenu extends Component {
