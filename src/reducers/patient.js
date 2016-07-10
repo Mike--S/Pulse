@@ -18,7 +18,9 @@ export default createReducer(initialState, {
   [types.FETCH_PATIENT_DATA_SUCCESS](state, data) {
     return Object.assign({}, state, {
       patient: {
-        doctors: data.payload,
+        fio: data.payload.fio,
+        doctors: data.payload.doctors,
+        devices: data.payload.devices,
         isFetching: false
       }
     });
