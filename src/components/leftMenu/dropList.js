@@ -11,15 +11,30 @@ export default class dropList extends Component {
     deviceList: PropTypes.array,
   };
 
-  titleClick() {
+  constructor() {
+    super();
 
+    this.state = {
+      opened: true
+    };
+
+    this.toggleMenu = this.toggleMenu.bind(this);
+  }
+
+  toggleMenu(event) {
+    this.setState({opened: !this.state.opened});
+    var element = event.target;
+    var body = document.querySelector('body');
+
+    setTimeout(()=> {
+      document.querySelectorAll('nav')[1].scrollTop += element.nextSibling.offsetHeight;
+    });
   }
 
   render() {
     const { styles, title, devices, buttonText } = this.props;
     const dl = styles[0];
     const u = styles[1];
-
     let deviceList = devices ? devices.map((device)=>{
       return (
         <li className={dl.device}>
@@ -31,11 +46,13 @@ export default class dropList extends Component {
 
     return (
       <div>
-        <div className={dl.title} onClick={this.titleClick}>{title}</div>
-        <ul className={u.clearSpaces + ' ' + dl.list}>
-          {deviceList}
-        </ul>
-        <Button options={ {emphasize:true} }>{buttonText}</Button>
+        <div className={dl.title} onClick={this.toggleMenu}>{title}</div>
+        <section style={ {'display' : this.state.opened ? 'block':'none' } }>
+          <ul className={u.clearSpaces + ' ' + dl.list}>
+            {deviceList}
+          </ul>
+          <Button options={ {emphasize:true} }>{buttonText}</Button>
+        </section>
       </div>
     )
   }
