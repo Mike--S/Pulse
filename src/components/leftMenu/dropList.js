@@ -41,7 +41,7 @@ export default class dropList extends Component {
 
     let deviceList = devices ? devices.map((device)=>{
       return (
-        <li className={dl.device}>icons
+        <li className={dl.device}>
           <span>{device.name}</span>
           <span className={u.right}>{device.id}</span>
         </li>
