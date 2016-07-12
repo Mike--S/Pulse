@@ -1,0 +1,7 @@
+@import "variables";
+
+:export {
+  IconWidth: 24;
+  IconHeight: 24;
+  IconExpandColor: darken($gray-normal, 20%);
+}
