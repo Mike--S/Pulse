@@ -24,9 +24,9 @@ export default class dropList extends Component {
     this.toggleMenu = this.toggleMenu.bind(this);
   }
 
-  toggleMenu(lm, event) {
+  toggleMenu(lm, dl) {
     this.setState({opened: !this.state.opened});
-    var element = event.target;
+    var element = document.querySelector('.' + dl.title);
 
     setTimeout(()=> {
       document.querySelector('.' + lm.leftMenu).scrollTop += element.nextSibling ? element.nextSibling.offsetHeight : 0;
@@ -50,7 +50,7 @@ export default class dropList extends Component {
 
     return (
       <div>
-        <div className={dl.title} onClick={this.toggleMenu.bind(this, lm)}>
+        <div className={dl.title} onClick={this.toggleMenu.bind(this, lm, dl)}>
           {title}
           <span className={dl.icon}><Icons iconName={this.state.opened ? "expand" : "collapse"} /></span>
         </div>
