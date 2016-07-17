@@ -13,6 +13,10 @@ li {
   font-family: 'Roboto';
 }
 
+body {
+  background: $gray-background;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -22,6 +26,7 @@ a {
 }
 
 .content {
-  padding-top: #{$header-height + 10px};
-  padding-left: #{$left-menu-width + 10px};
+  padding-top: #{$header-height + 20px};
+  padding-left: #{$left-menu-width + 20px};
+  padding-right: 20px;
 }

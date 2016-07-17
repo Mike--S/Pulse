@@ -9,13 +9,29 @@ export default class Button extends Component {
   };
 
   render() {
-    const { styles, options, children } = this.props;
+    const { styles, options, children, className } = this.props;
     const { onTouchTap } = this.props;
     var buttonClass;
     if (options) {
       switch(true) {
         case options.emphasize: {
             buttonClass = styles.buttonEmphasized;
+          }
+        break;
+        case options.inline: {
+            buttonClass = styles.buttonInline;
+          }
+        break;
+        case options.inlineGreen: {
+            buttonClass = styles.buttonInlineGreen;
+          }
+        break;
+        case options.ftat: {
+            buttonClass = styles.buttonFlat;
+          }
+        break;
+        case options.ftatGreen: {
+            buttonClass = styles.buttonFlatGreen;
           }
         break;
         default: {
@@ -26,6 +42,8 @@ export default class Button extends Component {
     else {
       buttonClass = styles.button;
     }
+
+    buttonClass += className ? ' ' + className : '';
 
     return (
       <button onTouchTap={onTouchTap} className={buttonClass}>

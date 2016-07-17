@@ -1,18 +1,11 @@
 @import '../../assets/variables';
 
-.button {
-  display: block;
-  position: relative;
-  background: darken($gray-light, 10%);
-  //border: 2px solid darken($gray-light, 20%);
-  box-shadow: 0 2px 1px 0 rgba(0,0,0,0.18), 0 4px 5px 0 rgba(0,0,0,0.15);
-  width: 100%;
-  border: 0;
-  border-radius: 2px;
+%commonStyles {
   padding: 5px 10px;
   cursor: pointer;
   text-align: left;
   font-size: $fz-small;
+  border-radius: 2px;
 
   &:hover {
 	background: darken($gray-light, 5%);
@@ -20,7 +13,38 @@
 
   &:active {
 	background: darken($gray-light, 20%);
-	color: $white-base;
+  }
+}
+
+.button {
+  display: block;
+  position: relative;
+  background: darken($gray-light, 10%);
+  //box-shadow: 0 2px 1px 0 rgba(0,0,0,0.18), 0 4px 5px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 2px 1px 0 rgba(0,0,0,0.18);
+  width: 100%;
+  border: 0;
+
+  @extend %commonStyles;
+}
+
+.buttonFlat {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  font-size: $fz-small;
+
+  @extend %commonStyles;
+}
+
+.buttonFlatGreen {
+  composes: buttonFlat;
+
+  &:hover {
+	background: lighten($light-green, 5%);
+  }
+  &:active {
+	background: lighten($light-green, 10%);
   }
 }
 
@@ -35,6 +59,25 @@
 
   &:active {
 	background: darken($violet, 5%);
+  }
+}
+
+.buttonInline {
+  composes: button;
+  width: auto;
+}
+
+.buttonInlineGreen {
+  composes: buttonInline;
+  background: $light-green;
+  color: #fff;
+
+  &:hover {
+	background: lighten($light-green, 5%);
+  }
+
+  &:active {
+	background: darken($light-green, 5%);
   }
 }
 
