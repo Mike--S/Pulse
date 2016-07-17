@@ -1,0 +1,43 @@
+@import "../../assets/variables";
+
+.header {
+  padding: 0 10px 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid $gray-normal;
+  font-size: $fz-middle;
+  color: $gray-dark;
+}
+
+.subHeader {
+  display: inline-block;
+  position: relative;
+  left: -10px;
+  background: $gray-light;
+  font-size: #{$fz-middle};
+  //box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;;
+  padding: 5px 10px;
+  color: $gray-dark;
+}
+
+.textBlock {
+  position: relative;
+  background: #fff;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;;
+
+  &:after {
+	content: "";
+	display: block;
+	width: 100%;
+	clear: both;
+  }
+}
+
+:export {
+  underLineFocus: $light-green;
+  inputFontSize: #{$fz-middle - 2px};
+}
+
+
+
+

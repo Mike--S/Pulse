@@ -11,10 +11,10 @@ export default class Container extends Component {
   };
 
   render() {
-    const { styles, fullH, flex } = this.props;
+    const { styles, fullH, flex, main } = this.props;
     let l = styles[0];
     let u = styles[1];
-    const additionalClass = fullH ? ' ' + u.fullH : '';
+    let additionalClass = fullH ? ' ' + u.fullH : '';
 
     if (flex) {
       return (
@@ -27,7 +27,7 @@ export default class Container extends Component {
     }
     else {
       return (
-        <div className={l.container + additionalClass}>
+        <div className={main ? l.mainContainer : l.container + additionalClass}>
           {this.props.children}
         </div>
       );

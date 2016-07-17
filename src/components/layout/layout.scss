@@ -16,6 +16,10 @@ $border-spacing: 5px;
   max-width: $max-content-width;
 }
 
+.mainContainer {
+  composes: container;
+}
+
 .flexContainer {
   display: flex;
   flex-direction: row;

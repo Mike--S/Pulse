@@ -20,7 +20,7 @@ export default class Main extends Component {
         <Header />
         <LeftMenu />
         <div className={styles.content}>
-          <Container>
+          <Container main={true}>
             {children}
           </Container>
         </div>
