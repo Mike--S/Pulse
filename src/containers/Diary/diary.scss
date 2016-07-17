@@ -12,9 +12,8 @@
   display: inline-block;
   position: relative;
   left: -10px;
-  background: $gray-light;
+  background: $gray-background;
   font-size: #{$fz-middle};
-  //box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;;
   padding: 5px 10px;
   color: $gray-dark;
 }
@@ -23,7 +22,11 @@
   position: relative;
   background: #fff;
   padding: 10px;
-  box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;;
+  box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+
+  + .textBlock {
+	margin-top: 10px;
+  }
 
   &:after {
 	content: "";

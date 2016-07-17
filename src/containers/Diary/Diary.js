@@ -11,6 +11,9 @@ import * as patientActions from '../../actions/patient/patient';
 import d from './diary.scss';
 import utils from '../../assets/utils.scss';
 
+import {Col, FlexContainer} from '../../components/layout/flex';
+import Container from '../../components/layout/container';
+
 @cssModules([d, utils])
 
 export default class Diary extends Component {
@@ -38,6 +41,40 @@ export default class Diary extends Component {
             inputStyle={{fontSize: d.inputFontSize}}
             defaultValue={"Хорошее"}
           />
+
+          <Button className={u.right} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
+        </article>
+
+        <article className={d.textBlock}>
+          <h3 className={d.subHeader}>Контроль назначен Угрюмов Олег Петрович</h3>
+          <div>АД</div>
+          <FlexContainer>
+            <Col md={4} xs={12}>
+              <TextField
+                underlineFocusStyle={{borderColor: d.underLineFocus}}
+                inputStyle={{fontSize: d.inputFontSize}}
+                fullWidth={true}
+                floatingLabelText={'утро'}
+              />
+            </Col>
+            <Col md={4} xs={12}>
+              <TextField
+                underlineFocusStyle={{borderColor: d.underLineFocus}}
+                inputStyle={{fontSize: d.inputFontSize}}
+                fullWidth={true}
+                floatingLabelText={'день'}
+              />
+            </Col>
+
+            <Col md={4}>
+              <TextField
+                underlineFocusStyle={{borderColor: d.underLineFocus}}
+                inputStyle={{fontSize: d.inputFontSize}}
+                fullWidth={true}
+                floatingLabelText={'вечер'}
+              />
+            </Col>
+          </FlexContainer>
 
           <Button className={u.right} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
         </article>

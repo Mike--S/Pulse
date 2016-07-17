@@ -11,27 +11,16 @@ export default class Container extends Component {
   };
 
   render() {
-    const { styles, fullH, flex, main } = this.props;
+    const { styles, fullH, main } = this.props;
     let l = styles[0];
     let u = styles[1];
     let additionalClass = fullH ? ' ' + u.fullH : '';
 
-    if (flex) {
-      return (
-        <div className={l.container + additionalClass}>
-          <div className={l.flexContainer + additionalClass}>
-            {this.props.children}
-          </div>
-        </div>
-      )
-    }
-    else {
-      return (
-        <div className={main ? l.mainContainer : l.container + additionalClass}>
-          {this.props.children}
-        </div>
-      );
-    }
+    return (
+      <div className={main ? l.mainContainer : l.container + additionalClass}>
+        {this.props.children}
+      </div>
+    );
   }
 }
 
