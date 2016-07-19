@@ -4,7 +4,7 @@
   padding: 5px 10px;
   cursor: pointer;
   text-align: left;
-  font-size: $fz-small;
+  font-size: #{$fz-middle - 2};
   border-radius: 2px;
 
   &:hover {
@@ -41,10 +41,10 @@
   composes: buttonFlat;
 
   &:hover {
-	background: lighten($light-green, 5%);
+	background: lighten($dark-green, 5%);
   }
   &:active {
-	background: lighten($light-green, 10%);
+	background: lighten($dark-green, 10%);
   }
 }
 
@@ -69,15 +69,15 @@
 
 .buttonInlineGreen {
   composes: buttonInline;
-  background: $light-green;
+  background: $dark-green;
   color: #fff;
 
   &:hover {
-	background: lighten($light-green, 5%);
+	background: lighten($dark-green, 5%);
   }
 
   &:active {
-	background: darken($light-green, 5%);
+	background: darken($dark-green, 5%);
   }
 }
 

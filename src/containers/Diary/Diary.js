@@ -37,8 +37,6 @@ export default class Diary extends Component {
             multiLine={true}
             rows={1}
             fullWidth={true}
-            underlineFocusStyle={{borderColor: d.underLineFocus}}
-            inputStyle={{fontSize: d.inputFontSize}}
             defaultValue={"Хорошее"}
           />
 
@@ -47,31 +45,90 @@ export default class Diary extends Component {
 
         <article className={d.textBlock}>
           <h3 className={d.subHeader}>Контроль назначен Угрюмов Олег Петрович</h3>
-          <div>АД</div>
           <FlexContainer>
-            <Col md={4} xs={12}>
+            <Col xs={12} md={6} lg={4} options={{indents: true}}>
+              <h4 className={d.title}>Артериальное давление</h4>
               <TextField
-                underlineFocusStyle={{borderColor: d.underLineFocus}}
-                inputStyle={{fontSize: d.inputFontSize}}
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'утро'}
+              />
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'день'}
+              />
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'вечер'}
+              />
+            </Col>
+            <Col xs={12} md={6} lg={4} options={{indents: true}}>
+              <h4 className={d.title}>Чсс</h4>
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'утро'}
+              />
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'день'}
+              />
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'вечер'}
+              />
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'ночь'}
+              />
+            </Col>
+            <Col xs={12} md={6} lg={4} options={{indents: true}}>
+              <h4 className={d.title}>Чсс</h4>
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'утро'}
+              />
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'день'}
+              />
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'вечер'}
+              />
+              <TextField
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'ночь'}
+              />
+            </Col>
+            <Col xs={12} md={6} lg={4} options={{indents: true}}>
+              <h4 className={d.title}>Чсс</h4>
+              <TextField
+                hintText={'100/10'}
                 fullWidth={true}
                 floatingLabelText={'утро'}
               />
             </Col>
-            <Col md={4} xs={12}>
+            <Col xs={12} md={6} lg={4} options={{indents: true}}>
+              <h4 className={d.title}>Чсс</h4>
               <TextField
-                underlineFocusStyle={{borderColor: d.underLineFocus}}
-                inputStyle={{fontSize: d.inputFontSize}}
+                hintText={'100/10'}
+                fullWidth={true}
+                floatingLabelText={'утро'}
+              />
+              <TextField
+                hintText={'100/10'}
                 fullWidth={true}
                 floatingLabelText={'день'}
-              />
-            </Col>
-
-            <Col md={4}>
-              <TextField
-                underlineFocusStyle={{borderColor: d.underLineFocus}}
-                inputStyle={{fontSize: d.inputFontSize}}
-                fullWidth={true}
-                floatingLabelText={'вечер'}
               />
             </Col>
           </FlexContainer>

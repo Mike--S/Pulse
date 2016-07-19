@@ -11,10 +11,11 @@ export class FlexContainer extends Component {
   };
 
   render() {
-    const { styles, fullH } = this.props;
+    const { styles, fullH, alignItems } = this.props;
     let l = styles[0];
     let u = styles[1];
     let additionalClass = fullH ? ' ' + u.fullH : '';
+    additionalClass += alignItems ? ' ' + l.flexContainerCentred: '';
 
     return (
       <div className={l.flexContainer + additionalClass}>
@@ -32,13 +33,15 @@ export class Col extends Component {
   };
 
   render() {
-    const { styles, xs, md, sm, f, children } = this.props;
-    const xsClass = xs ? styles['colXS' + xs] + ' ' : '';
-    const mdClass = md ? styles['col' + md] + ' ' : '';
-    const smClass = sm ? styles['colSM' + sm] + ' ' : '';
+    const { styles, xs, md, sm, lg, children, options } = this.props;
+    let additionalClass = options && options.indents ? "Indented" : "";
+    const xsClass = xs ? styles['colXS' + xs + additionalClass ]  + ' ' : '';
+    const mdClass = md ? styles['col' + md + additionalClass] + ' ' : '';
+    const smClass = sm ? styles['colSM' + sm + additionalClass] + ' ' : '';
+    const lgClass = lg ? styles['colLG' + lg + additionalClass] + ' ' : '';
 
     return (
-      <div className={xsClass + mdClass + smClass + ' ' + styles.colFullHeight}>
+      <div className={xsClass + mdClass + smClass + lgClass + ' '}>
         {children}
       </div>
     );

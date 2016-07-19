@@ -4,7 +4,7 @@
   padding: 0 10px 10px;
   margin-bottom: 10px;
   border-bottom: 1px solid $gray-normal;
-  font-size: $fz-middle;
+  font-size: $fz-big;
   color: $gray-dark;
 }
 
@@ -13,9 +13,15 @@
   position: relative;
   left: -10px;
   background: $gray-background;
-  font-size: #{$fz-middle};
+  font-size: $fz-big;
   padding: 5px 10px;
   color: $gray-dark;
+}
+
+.title {
+  padding-top: 10px;
+  color: $gray-dark;
+  font-size: #{$fz-big};
 }
 
 .textBlock {
@@ -37,7 +43,6 @@
 }
 
 :export {
-  underLineFocus: $light-green;
   inputFontSize: #{$fz-middle - 2px};
 }
 

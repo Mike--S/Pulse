@@ -16,7 +16,7 @@ $dark-green: #346641;
  * Layout
  * ========================================================================== */
 
-$max-content-width: 900px;
+$max-content-width: 1200px;
 $left-menu-width: 200px;
 $header-height: 70px;
 
@@ -43,3 +43,7 @@ $fz-small: 12px;
 
 $z-normal: 1;
 $z-header: 10;
+
+:export {
+  darkGreen: $dark-green;
+}
