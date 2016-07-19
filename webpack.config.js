@@ -45,6 +45,10 @@ module.exports = {
           'style?sourceMap',
           'css?sourceMap&modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!sass'
         ]
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
       }
     ]
   }
