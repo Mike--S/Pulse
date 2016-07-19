@@ -2,150 +2,57 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cssModules from 'react-css-modules';
-import TextField from 'material-ui/TextField';
-import Button from '../../components/button/button';
 
-import * as types from '../../actions/actionTypes';
-import * as patientActions from '../../actions/patient/patient';
+import * as diaryActions from '../../actions/diary/diary';
 
-import d from './diary.scss';
-import utils from '../../assets/utils.scss';
+import styles from './diary.scss';
 
-import {Col, FlexContainer} from '../../components/layout/flex';
-import Container from '../../components/layout/container';
+import {FormBlockHealth, FormBlockWithParams} from '../../components/diary/FormBlock';
 
-@cssModules([d, utils])
+@cssModules(styles)
 
 export default class Diary extends Component {
   static propTypes = {
 
   };
 
+  componentWillMount() {
+    this.props.loadDiary();
+  }
+
   render() {
-    const { styles } = this.props;
-    const d = styles[0];
-    const u = styles[1];
+    const { styles, diary } = this.props;
+    let isFetching = diary && diary.isFetching;
 
-    return (
-      <div>
-        <h2 className={d.header} >24 Октября 2014, Среда</h2>
+    if (isFetching === undefined || isFetching) {
+      return(<h1>Loading</h1>)
+    }
+    else {
+      var controlBlocks = diary.data.controlBlocks.map(function (controlBlock) {
+        return (
+          <FormBlockWithParams data={controlBlock} />
+        )
+      });
 
-        <article className={d.textBlock}>
-          <h3 className={d.subHeader}>Самочувствие</h3>
+      return (
+        <div>
+          <h2 className={styles.header} >24 Октября 2014, Среда</h2>
 
-          <TextField
-            multiLine={true}
-            rows={1}
-            fullWidth={true}
-            defaultValue={"Хорошее"}
-          />
+          <FormBlockHealth health={diary.data.health} />
 
-          <Button className={u.right} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
-        </article>
-
-        <article className={d.textBlock}>
-          <h3 className={d.subHeader}>Контроль назначен Угрюмов Олег Петрович</h3>
-          <FlexContainer>
-            <Col xs={12} md={6} lg={4} options={{indents: true}}>
-              <h4 className={d.title}>Артериальное давление</h4>
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'утро'}
-              />
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'день'}
-              />
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'вечер'}
-              />
-            </Col>
-            <Col xs={12} md={6} lg={4} options={{indents: true}}>
-              <h4 className={d.title}>Чсс</h4>
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'утро'}
-              />
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'день'}
-              />
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'вечер'}
-              />
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'ночь'}
-              />
-            </Col>
-            <Col xs={12} md={6} lg={4} options={{indents: true}}>
-              <h4 className={d.title}>Чсс</h4>
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'утро'}
-              />
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'день'}
-              />
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'вечер'}
-              />
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'ночь'}
-              />
-            </Col>
-            <Col xs={12} md={6} lg={4} options={{indents: true}}>
-              <h4 className={d.title}>Чсс</h4>
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'утро'}
-              />
-            </Col>
-            <Col xs={12} md={6} lg={4} options={{indents: true}}>
-              <h4 className={d.title}>Чсс</h4>
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'утро'}
-              />
-              <TextField
-                hintText={'100/10'}
-                fullWidth={true}
-                floatingLabelText={'день'}
-              />
-            </Col>
-          </FlexContainer>
-
-          <Button className={u.right} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
-        </article>
-      </div>
-    )
+          {controlBlocks}
+        </div>
+      )
+    }
   }
 }
 
 function mapStateToProps(state) {
-  return state.patient
+  return state.diary
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(patientActions, dispatch)
+  return bindActionCreators(diaryActions, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Diary);

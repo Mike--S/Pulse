@@ -1,0 +1,35 @@
+@import '../../assets/variables';
+
+.textBlock {
+  position: relative;
+  background: #fff;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+
+  + .textBlock {
+	margin-top: 10px;
+  }
+
+  &:after {
+	content: "";
+	display: block;
+	width: 100%;
+	clear: both;
+  }
+}
+
+.subHeader {
+  display: inline-block;
+  position: relative;
+  left: -10px;
+  background: $gray-background;
+  font-size: $fz-big;
+  padding: 5px 10px;
+  color: $gray-dark;
+}
+
+.title {
+  padding-top: 20px;
+  color: $gray-dark;
+  font-size: #{$fz-big};
+}

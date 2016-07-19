@@ -4,17 +4,17 @@ import common from '../../config/common.json';
 
 const API_ROOT = common.apiUrl;
 
-function fetchPatientData() {
+function fetchDiaryData() {
   return {
     [CALL_API]: {
-      endpoint: API_ROOT + 'login',
+      endpoint: API_ROOT + 'diary',
       method: 'GET',
       types: [
         {
-          type: types.FETCH_PATIENT_DATA
+          type: types.FETCH_DIARY_DATA
         },
         {
-          type: types.FETCH_PATIENT_DATA_SUCCESS,
+          type: types.FETCH_DIARY_DATA_SUCCESS,
           payload: (action, state, res) => {
             const contentType = res.headers.get('Content-Type');
             if (contentType && ~contentType.indexOf('json')) {
@@ -23,16 +23,16 @@ function fetchPatientData() {
           }
         },
         {
-          type: types.FETCH_PATIENT_DATA_FAILURE
+          type: types.FETCH_DIARY_DATA_FAILURE
         }
       ]
     }
   }
 }
 
-export function loadPatient() {
+export function loadDiary() {
   return (dispatch, getState) => {
-    return dispatch(fetchPatientData());
+    return dispatch(fetchDiaryData());
   }
 }
 
