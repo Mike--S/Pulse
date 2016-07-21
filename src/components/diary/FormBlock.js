@@ -7,11 +7,10 @@ import u from '../../assets/utils.scss';
 import TextField from 'material-ui/TextField';
 import Button from '../../components/button/button';
 import {Col, FlexContainer} from '../../components/layout/flex';
-import Container from '../../components/layout/container';
 
 @cssModules([fb,u])
 
-export class FormBlockHealth extends Component {
+export class FormBlockText extends Component {
   static propTypes = {
     health: PropTypes.string
   };
@@ -52,7 +51,7 @@ export class FormBlockWithParams extends Component {
   };
 
   render() {
-    const { styles, data } = this.props;
+    const { styles, data, postFunction } = this.props;
     const fb = styles[0];
     const u = styles[1];
     const doctor = data.from.doctor;
@@ -86,7 +85,7 @@ export class FormBlockWithParams extends Component {
             {paramBlocks}
           </FlexContainer>
 
-          <Button className={u.right} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
+          <Button className={u.right} options={{inlineGreen: true}} clickFunction={postFunction}>ЗАПИСАТЬ</Button>
         </article>
       )
     }

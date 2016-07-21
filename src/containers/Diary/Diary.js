@@ -7,7 +7,7 @@ import * as diaryActions from '../../actions/diary/diary';
 
 import styles from './diary.scss';
 
-import {FormBlockHealth, FormBlockWithParams} from '../../components/diary/FormBlock';
+import {FormBlockText, FormBlockWithParams} from '../../components/diary/FormBlock';
 
 @cssModules(styles)
 
@@ -25,12 +25,12 @@ export default class Diary extends Component {
     let isFetching = diary && diary.isFetching;
 
     if (isFetching === undefined || isFetching) {
-      return(<h1>Loading</h1>)
+      return(<h2>Loading...</h2>)
     }
     else {
-      var controlBlocks = diary.data.controlBlocks.map(function (controlBlock) {
+      var controlBlocks = diary.data.controlBlocks.map((controlBlock) => {
         return (
-          <FormBlockWithParams data={controlBlock} />
+          <FormBlockWithParams data={controlBlock} postFunction={this.props.postDiaryParams} />
         )
       });
 
@@ -38,7 +38,7 @@ export default class Diary extends Component {
         <div>
           <h2 className={styles.header} >24 Октября 2014, Среда</h2>
 
-          <FormBlockHealth health={diary.data.health} />
+          <FormBlockText health={diary.data.healthBlock.text} />
 
           {controlBlocks}
         </div>

@@ -22,5 +22,21 @@ export default createReducer(initialState, {
         isFetching: false
       }
     });
+  },
+  [types.POST_DIARY_DATA](state) {
+    return Object.assign({}, state, {
+      diary: {
+        ...state.diary,
+        isPosting: true
+      }
+    });
+  },
+  [types.POST_DIARY_DATA_SUCCESS](state, data) {
+    return Object.assign({}, state, {
+      diary: {
+        ...state.diary,
+        isPosting: false
+      }
+    });
   }
 });
