@@ -24,13 +24,13 @@ export default class Diary extends Component {
     const { styles, diary } = this.props;
     let isFetching = diary && diary.isFetching;
 
-    if (isFetching === undefined || isFetching) {
+    if (isFetching === undefined || isFetching || !diary.data) {
       return(<h2>Loading...</h2>)
     }
     else {
-      var controlBlocks = diary.data.controlBlocks.map((controlBlock) => {
+      var controlBlocks = diary.data.controlBlocks.map((controlBlock, index) => {
         return (
-          <FormBlockWithParams data={controlBlock} postFunction={this.props.postDiaryParams} />
+          <FormBlockWithParams key={'controlBlock' + index} data={controlBlock} postFunction={this.props.postDiaryParams} />
         )
       });
 

@@ -23,7 +23,6 @@ export default class Root extends Component {
         primary1Color: styles.darkGreen
       }
     });
-    console.log(muiTheme);
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>

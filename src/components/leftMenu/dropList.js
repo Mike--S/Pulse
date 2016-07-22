@@ -39,9 +39,9 @@ export default class dropList extends Component {
     const u = styles[1];
     const lm = styles[2];
 
-    let deviceList = devices ? devices.map((device)=>{
+    let deviceList = devices ? devices.map((device, index)=>{
       return (
-        <li className={dl.device}>
+        <li key={"device" + index} className={dl.device}>
           <span>{device.name}</span>
           <span className={u.right}>{device.id}</span>
         </li>

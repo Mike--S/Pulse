@@ -25,6 +25,7 @@ export class FormBlockText extends Component {
         <h3 className={fb.subHeader}>Самочувствие</h3>
 
         <TextField
+          id={"health"}
           multiLine={true}
           rows={1}
           fullWidth={true}
@@ -56,10 +57,12 @@ export class FormBlockWithParams extends Component {
     const u = styles[1];
     const doctor = data.from.doctor;
     if (data.timeParameters.length !== 0) {
-      var paramBlocks = data.timeParameters.map(function (param) {
-        var timeFields = param.time.map(function (field) {
+      var paramBlocks = data.timeParameters.map(function (param, index) {
+        var timeFields = param.time.map(function (field, index) {
           return (
             <TextField
+              key={"textField" + index}
+              id={"textField" + index}
               hintText={param.hint}
               fullWidth={true}
               floatingLabelText={field.type}
@@ -69,7 +72,7 @@ export class FormBlockWithParams extends Component {
         });
 
         return (
-          <Col xs={12} md={6} lg={4} options={{indents: true}}>
+          <Col key={param.id + '' + index} xs={12} md={6} lg={4} options={{indents: true}}>
             <h4 className={fb.title}>{param.title}</h4>
 
             {timeFields}
