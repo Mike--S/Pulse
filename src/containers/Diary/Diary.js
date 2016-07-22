@@ -24,7 +24,7 @@ export default class Diary extends Component {
     const { styles, diary } = this.props;
     let isFetching = diary && diary.isFetching;
 
-    if (isFetching === undefined || isFetching || !diary.data) {
+    if (isFetching === undefined || isFetching) {
       return(<h2>Loading...</h2>)
     }
     else {
@@ -48,7 +48,9 @@ export default class Diary extends Component {
 }
 
 function mapStateToProps(state) {
-  return state.diary
+  return {
+    diary: state.diary
+  }
 }
 
 function mapDispatchToProps(dispatch) {

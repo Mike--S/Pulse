@@ -10,14 +10,13 @@ export function loadDiary() {
   }
 }
 
-
 function postDiaryData(action, state) {
   console.log(state);
 }
 
 export function postDiaryParams() {
   return (dispatch) => {
-    return dispatch(callApi.post('POST', API_ROOT + 'diary', types.POST_DIARY_DATA, types.POST_DIARY_DATA_SUCCESS, types.FETCH_DIARY_DATA_FAILURE, postDiaryData));
+    return dispatch(callApi.fetch('POST', API_ROOT + 'diary', types.POST_DIARY_DATA, types.POST_DIARY_DATA_SUCCESS, types.FETCH_DIARY_DATA_FAILURE, postDiaryData));
   }
 }
 

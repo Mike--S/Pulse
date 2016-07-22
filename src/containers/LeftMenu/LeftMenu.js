@@ -69,7 +69,9 @@ class TopMenu extends Component {
 }
 
 function mapStateToProps(state) {
-  return state.patient
+  return {
+    patient: state.patient
+  }
 }
 
 function mapDispatchToProps(dispatch) {
