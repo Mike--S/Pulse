@@ -19,18 +19,18 @@ export default class ButtonsBlock extends Component {
     let bb = styles[0];
     let utils = styles[1];
 
-    let buttonsList = buttonTitles.map((title)=>{
+    let buttonsList = buttonTitles.map((title, index)=>{
       switch(role) {
         case 'Patient':
           return (
-            <li className={bb.buttonItem}>
+            <li key={"buttonItem" + index} className={bb.buttonItem}>
               <MenuBlock role="Patient" title={title}/>
             </li>
           );
           break;
         default :
           return (
-            <li className={bb.buttonItem}>
+            <li key={"buttonItem" + index} className={bb.buttonItem}>
               <Button>{title}</Button>
             </li>
           )
