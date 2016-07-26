@@ -91,6 +91,7 @@ export default class Diary extends Component {
                   label={field.label}
                   defaultValue={field.value}
                   name={field.type}
+                  validate={['validateTimeParams']}
                 />
               )
             })
