@@ -12,6 +12,7 @@ import u from '../../assets/utils.scss';
 import Button from '../../components/button/button';
 import {Col, FlexContainer} from '../../components/layout/flex';
 import TextField from 'material-ui/TextField';
+import ParamField from '../../components/diary/paramField';
 
 @cssModules([d, u])
 
@@ -19,6 +20,35 @@ export default class Diary extends Component {
   static propTypes = {
 
   };
+
+  static childContextTypes = {
+    update: PropTypes.func,
+    timeValues: PropTypes.object
+  };
+
+  getChildContext() {
+    return {
+      update: this.update,
+      timeValues: this.props.diary.data ? this.props.diary.data.times : {}
+    };
+  };
+
+  constructor() {
+    super();
+
+    this.handlePostForm = this.handlePostForm.bind(this);
+    this.update = this.update.bind(this);
+  }
+
+  update(name, value) {
+    this.props.updateDiary(name, value);
+  }
+
+  handlePostForm(event) {
+    event.preventDefault();
+
+    this.props.postDiaryParams({});
+  }
 
   getTimeBlockData(ids, timeBlocksData) {
     return _.filter(timeBlocksData, (timeBlock) => {
@@ -55,13 +85,12 @@ export default class Diary extends Component {
             timeBlocks = _.map(timeBlocksData, (field, index)=> {
 
               return (
-                <TextField
-                  key={index}
-                  hintText={param.hint}
-                  fullWidth={true}
-                  floatingLabelText={field.label}
+                <ParamField
+                  key={field.type}
+                  placeholder={param.hint}
+                  label={field.label}
                   defaultValue={field.value}
-                  errorText=""
+                  name={field.type}
                 />
               )
             })
@@ -88,7 +117,7 @@ export default class Diary extends Component {
                 {paramBlocks}
               </FlexContainer>
 
-              <Button className={u.right} options={{inlineGreen: true}} clickFunction={this.props.postDiaryParams}>ЗАПИСАТЬ</Button>
+              <Button className={u.right} options={{inlineGreen: true}} clickFunction={this.handlePostForm}>ЗАПИСАТЬ</Button>
             </form>
 
           )
