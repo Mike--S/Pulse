@@ -30,9 +30,10 @@ export default createReducer(initialState, {
     };
   },
   [types.UPDATE_DIARY_DATA](state, data) {
+    state.data.times[data.name].value = data.value;
 
     return {
       ...state
-    };
+    }
   }
 });

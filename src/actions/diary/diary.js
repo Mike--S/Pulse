@@ -24,10 +24,11 @@ paramsSchema.define({
   time: arrayOf(timesSchems)
 });
 
-function diaryUpdate(diaryData) {
+function diaryUpdate(name, value) {
   return {
     type: types.UPDATE_DIARY_DATA,
-    data: diaryData
+    name: name,
+    value: value
   }
 }
 
@@ -43,9 +44,9 @@ export function postDiaryParams(postDiaryData) {
   }
 }
 
-export function updateDiary(diaryData) {
+export function updateDiary(name, value) {
   return (dispatch) => {
-    dispatch(diaryUpdate(diaryData))
+    dispatch(diaryUpdate(name, value))
   }
 }
 
