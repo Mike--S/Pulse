@@ -79,6 +79,12 @@
   &:active {
 	background: darken($dark-green, 5%);
   }
+
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:active {
+	background: lighten($dark-green, 50%);
+  }
 }
 
 .buttonPushed {

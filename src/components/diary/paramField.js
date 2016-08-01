@@ -15,6 +15,7 @@ export default class ParamField extends Component {
 
   static contextTypes = {
     update: PropTypes.func.isRequired,
+    registerValidation: PropTypes.func.isRequired,
     timeValues: PropTypes.object.isRequired
   };
 
@@ -33,11 +34,16 @@ export default class ParamField extends Component {
 
   componentDidMount() {
     this.props.validate = [];
+    this.removeValidationFromContext = this.context.registerValidation(show =>
+      this.isValid(show));
+  }
+
+  componentWillUnmount() {
+    this.removeValidationFromContext();
   }
 
   updateValue(value) {
     this.context.update(this.props.name, value);
-
     if (this.state.errors.length) {
       setTimeout(() => this.isValid(true), 0);
     }
@@ -46,6 +52,7 @@ export default class ParamField extends Component {
   isValid(showErrors) {
     const errors = this.props.validate
       .reduce((memo, currentName) => {
+
         return memo.concat(validators[currentName](
           this.props.name,
           this.context.timeValues[this.props.name].value

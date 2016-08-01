@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cssModules from 'react-css-modules';
 import _ from 'lodash';
+import without from 'lodash.without';
 
 import * as diaryActions from '../../actions/diary/diary';
 
@@ -23,21 +24,30 @@ export default class Diary extends Component {
 
   static childContextTypes = {
     update: PropTypes.func,
-    timeValues: PropTypes.object
+    timeValues: PropTypes.object,
+    registerValidation: PropTypes.func,
+    isFormValid: PropTypes.func
   };
 
   getChildContext() {
     return {
       update: this.update,
-      timeValues: this.props.diary.data ? this.props.diary.data.times : {}
+      timeValues: this.props.diary.data ? this.props.diary.data.times : {},
+      registerValidation: this.registerValidation,
+      isFormValid: this.isFormValid
     };
   };
 
   constructor() {
     super();
 
+    this.validations = [];
+
     this.handlePostForm = this.handlePostForm.bind(this);
     this.update = this.update.bind(this);
+    this.registerValidation = this.registerValidation.bind(this);
+    this.removeValidation = this.removeValidation.bind(this);
+    this.isFormValid = this.isFormValid.bind(this);
   }
 
   update(name, value) {
@@ -47,13 +57,31 @@ export default class Diary extends Component {
   handlePostForm(event) {
     event.preventDefault();
 
-    this.props.postDiaryParams({});
+    if (this.isFormValid(true)) {
+      this.props.postDiaryParams({});
+    }
   }
 
   getTimeBlockData(ids, timeBlocksData) {
     return _.filter(timeBlocksData, (timeBlock) => {
       return _.includes(ids, timeBlock.type);
     });
+  }
+
+  registerValidation(isValidFunc) {
+    this.validations = [...this.validations, isValidFunc];
+    return this.removeValidation.bind(null, isValidFunc);
+  }
+
+  removeValidation(ref) {
+    this.validations = without(this.validations, ref);
+  }
+
+  isFormValid(showErrors) {
+    return this.validations.reduce(
+      (memo, isValidFunc) => {
+        return isValidFunc(showErrors) && memo
+      }, true)
   }
 
   componentWillMount() {

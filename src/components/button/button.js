@@ -9,7 +9,7 @@ export default class Button extends Component {
   };
 
   render() {
-    const { styles, options, children, className, clickFunction } = this.props;
+    const { styles, options, children, className, clickFunction, disabled } = this.props;
     const { onTouchTap } = this.props;
     var buttonClass;
     if (options) {
@@ -42,13 +42,18 @@ export default class Button extends Component {
     else {
       buttonClass = styles.button;
     }
-
     buttonClass += className ? ' ' + className : '';
 
-    return (
-      <button onTouchTap={onTouchTap} className={buttonClass} onClick={clickFunction}>
+    if (disabled) {
+      return <button disabled={"disabled"} onTouchTap={onTouchTap} className={buttonClass} onClick={clickFunction}>
+          {children}
+        </button>
+    }
+    else {
+      return <button onTouchTap={onTouchTap} className={buttonClass} onClick={clickFunction}>
         {children}
       </button>
-    );
+    }
+
   }
 }
