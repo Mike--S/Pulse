@@ -15,7 +15,13 @@ export class FlexContainer extends Component {
     let l = styles[0];
     let u = styles[1];
     let additionalClass = fullH ? ' ' + u.fullH : '';
-    additionalClass += alignItems ? ' ' + l.flexContainerCentred: '';
+
+    switch (alignItems) {
+      case 'center': additionalClass += ' ' + l.flexContainerCentred;
+      break;
+      case 'end': additionalClass += ' ' + l.flexContainerEnd;
+      break;
+    }
 
     return (
       <div className={l.flexContainer + additionalClass}>

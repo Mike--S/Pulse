@@ -62,9 +62,9 @@ export default class Diary extends Component {
     }
   }
 
-  getTimeBlockData(ids, timeBlocksData) {
-    return _.filter(timeBlocksData, (timeBlock) => {
-      return _.includes(ids, timeBlock.type);
+  getAppropriateData(ids, blocksData, idField) {
+    return _.filter(blocksData, (block) => {
+      return _.includes(ids, block[idField]);
     });
   }
 
@@ -104,39 +104,41 @@ export default class Diary extends Component {
       return(<h2>Loading...</h2>)
     }
     else {
-      if (Object.keys(diaryData.params).length !== 0) {
-
-        paramBlocks = _.map(diaryData.params,(param) => {
-          if(Object.keys(diaryData.times).length !==0 ) {
-            let timeBlocksData = this.getTimeBlockData(param.time, diaryData.times);
-
-            timeBlocks = _.map(timeBlocksData, (field, index)=> {
-
-              return (
-                <ParamField
-                  key={field.type}
-                  placeholder={param.hint}
-                  label={field.label}
-                  defaultValue={field.value}
-                  name={field.type}
-                  validate={['validateTimeParams']}
-                />
-              )
-            })
-          }
-
-          return(
-            <Col key={param.id} xs={12} md={6} lg={4} options={{indents: true}}>
-              <h4 className={d.title}>{param.title}</h4>
-
-              {timeBlocks}
-            </Col>
-          )
-        });
-      }
-
       if (Object.keys(diaryData.controlBlock).length !== 0) {
         controlBlocks = _.map(diaryData.controlBlock, (controlBlock, index) => {
+
+          if (Object.keys(diaryData.params).length !== 0) {
+            let paramsBlockData =this.getAppropriateData(controlBlock.parameters, diaryData.params, 'id');
+
+            paramBlocks = _.map(paramsBlockData,(param) => {
+
+              if (Object.keys(diaryData.times).length !== 0 ) {
+                let timeBlocksData = this.getAppropriateData(param.time, diaryData.times, 'id');
+                timeBlocks = _.map(timeBlocksData, (field)=> {
+
+                  return (
+                    <ParamField
+                      key={field.id}
+                      placeholder={param.hint}
+                      label={field.label}
+                      defaultValue={field.value}
+                      name={field.id}
+                      type={param.type}
+                      validate={['validateTimeParams']}
+                    />
+                  )
+                })
+              }
+
+              return(
+                <Col key={param.id} xs={12} md={6} lg={4} options={{indents: true}}>
+                  <h4 className={d.title}>{param.title}</h4>
+
+                  {timeBlocks}
+                </Col>
+              )
+            });
+          }
 
           return (
             <form key={index} className={d.textBlock}>
@@ -146,7 +148,7 @@ export default class Diary extends Component {
                 {paramBlocks}
               </FlexContainer>
 
-              <Button className={u.right} options={{inlineGreen: true}} clickFunction={this.handlePostForm}>ЗАПИСАТЬ</Button>
+              <Button className={u.right + ' ' + d.submit} options={{inlineGreen: true}} clickFunction={this.handlePostForm.bind(this, controlBlock.id)}>ЗАПИСАТЬ</Button>
             </form>
 
           )
@@ -168,7 +170,7 @@ export default class Diary extends Component {
               defaultValue={diaryData.healthBlock.text}
             />
 
-            <Button className={u.right} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
+            <Button className={u.right + ' ' + d.submit} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
           </form>
 
           {controlBlocks}

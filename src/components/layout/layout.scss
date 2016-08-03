@@ -45,6 +45,11 @@ $border-spacing: 5px;
   align-items: center;
 }
 
+.flexContainerEnd {
+  composes: flexContainer;
+  align-items: flex-end;
+}
+
 .col {
   @include columns(1, $grid-columns);
   @include columnsIndented(1, $grid-columns);

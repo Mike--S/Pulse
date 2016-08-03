@@ -20,7 +20,7 @@ export default class Header extends Component {
     return (
       <header className={styles.header}>
         <Container fullH>
-          <FlexContainer fullH alignItems={true}>
+          <FlexContainer fullH alignItems={'center'}>
             <Col md={4} xs={4/*12*/}>
               <div className={styles.user}>Еремин Виталий Викторович</div>
             </Col>

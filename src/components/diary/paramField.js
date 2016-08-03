@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import cssModules from 'react-css-modules';
 import styles from './paramField.scss';
 import TextField from 'material-ui/TextField';
+import Slider from 'material-ui/Slider';
 import * as validators from '../../utils/validators/timeParams';
+import {Col, FlexContainer} from '../../components/layout/flex';
 
 @cssModules(styles)
 
@@ -69,26 +71,53 @@ export default class ParamField extends Component {
     this.isValid(true);
   }
 
-  onChange(event) {
-    this.updateValue(event.target.value)
+  onChange(event, value) {
+    this.updateValue(value)
   };
 
   render() {
-    const { styles } = this.props;
+    const { name, label, placeholder, type } = this.props;
+    const { timeValues } = this.context;
+    let value = Object.keys(timeValues).length ? timeValues[name].value : 0;
 
-    return(
-      <TextField
-        fullWidth={true}
-        hintText={this.props.placeholder}
-        floatingLabelText={this.props.label}
-        value={Object.keys(this.context.timeValues).length ? this.context.timeValues[this.props.name].value : ""}
-        onChange={this.onChange}
-        onBlur={this.onBlur}
-        errorText={this.state.errors.length ? (
-          <div>
-            {this.state.errors.map((error, i) => <div key={i}>{error}</div>)}
-          </div>
-        ) : null}/>
-    )
+    switch(type) {
+      case 'text': {
+        return(
+          <TextField
+            fullWidth={true}
+            hintText={placeholder}
+            floatingLabelText={label}
+            value={value}
+            onChange={this.onChange}
+            onBlur={this.onBlur}
+            errorText={this.state.errors.length ? (
+              <div>
+                {this.state.errors.map((error, i) => <div key={i}>{error}</div>)}
+              </div>
+            ) : null}/>
+        )
+      }
+      break;
+      case 'range': {
+        return(
+          <FlexContainer alignItems={'end'}>
+            <Col md={10} options={{indents: true}}>
+              <Slider
+                min={0}
+                max={10}
+                step={1}
+                sliderStyle={{marginTop: '54px', marginBottom: '0'}}
+                value={value}
+                onChange={this.onChange}
+              />
+            </Col>
+            <Col md={2} options={{indents: true}}>
+              {value}
+            </Col>
+          </FlexContainer>
+        )
+      }
+      break;
+    }
   }
 }

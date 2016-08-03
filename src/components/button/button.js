@@ -26,7 +26,7 @@ export default class Button extends Component {
             buttonClass = styles.buttonInlineGreen;
           }
         break;
-        case options.ftat: {
+        case options.flat: {
             buttonClass = styles.buttonFlat;
           }
         break;

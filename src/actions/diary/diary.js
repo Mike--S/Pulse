@@ -8,7 +8,7 @@ const API_ROOT = common.apiUrl;
 const controlBlocksSchema = new Schema('controlBlocks', {idAttribute: () => '0'});
 const controlBlockSchema = new Schema('controlBlock');
 const paramsSchema = new Schema('params');
-const timesSchems = new Schema('times', {idAttribute: 'type'});
+const timesSchems = new Schema('times');
 const healthBlockSchema = new Schema('healthBlock', {idAttribute: () => '0'});
 
 controlBlocksSchema.define({
@@ -17,7 +17,7 @@ controlBlocksSchema.define({
 });
 
 controlBlockSchema.define({
-  timeParameters: arrayOf(paramsSchema)
+  parameters: arrayOf(paramsSchema)
 });
 
 paramsSchema.define({
