@@ -3,6 +3,7 @@ import cssModules from 'react-css-modules';
 import styles from './paramField.scss';
 import TextField from 'material-ui/TextField';
 import Slider from 'material-ui/Slider';
+import Checkbox from 'material-ui/Checkbox';
 import * as validators from '../../utils/validators/timeParams';
 import {Col, FlexContainer} from '../../components/layout/flex';
 
@@ -36,8 +37,7 @@ export default class ParamField extends Component {
 
   componentDidMount() {
     this.props.validate = [];
-    this.removeValidationFromContext = this.context.registerValidation(show =>
-      this.isValid(show));
+    this.removeValidationFromContext = this.context.registerValidation(show => this.isValid(show));
   }
 
   componentWillUnmount() {
@@ -54,7 +54,6 @@ export default class ParamField extends Component {
   isValid(showErrors) {
     const errors = this.props.validate
       .reduce((memo, currentName) => {
-
         return memo.concat(validators[currentName](
           this.props.name,
           this.context.timeValues[this.props.name].value
@@ -101,7 +100,7 @@ export default class ParamField extends Component {
       case 'range': {
         return(
           <FlexContainer alignItems={'end'}>
-            <Col md={10} options={{indents: true}}>
+            <Col md={8} options={{indents: true}}>
               <Slider
                 min={0}
                 max={10}
@@ -111,10 +110,24 @@ export default class ParamField extends Component {
                 onChange={this.onChange}
               />
             </Col>
-            <Col md={2} options={{indents: true}}>
+            <Col md={1} options={{indents: true}}>
               {value}
             </Col>
+            <Col md={3} options={{indents: true}}>
+              {label}
+            </Col>
           </FlexContainer>
+        )
+      }
+      break;
+      case 'boolean': {
+        return(
+          <Checkbox
+            label={label}
+            checked={value}
+            onCheck={this.onChange}
+            style={{marginTop: '50px'}}
+          />
         )
       }
       break;

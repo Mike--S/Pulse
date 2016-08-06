@@ -37,11 +37,10 @@ export function post(method, endpoint, requestType, successType, failureType, po
     [CALL_API]: {
       endpoint: endpoint,
       method: method,
-      headers: {
-        'Cache-Control': 'no-cache',
-        'Content-Type': 'application/json'
-      },
       body: JSON.stringify(postData),
+      headers: {
+        "content-type": "application/json"
+      },
       types: [
         {
           type: requestType,

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cssModules from 'react-css-modules';
 import _ from 'lodash';
-import without from 'lodash.without';
 
 import * as diaryActions from '../../actions/diary/diary';
 
@@ -13,6 +12,8 @@ import u from '../../assets/utils.scss';
 import Button from '../../components/button/button';
 import {Col, FlexContainer} from '../../components/layout/flex';
 import TextField from 'material-ui/TextField';
+import Form from '../../components/diary/form';
+import SubmitButton from '../../components/diary/submitButton';
 import ParamField from '../../components/diary/paramField';
 
 @cssModules([d, u])
@@ -24,17 +25,14 @@ export default class Diary extends Component {
 
   static childContextTypes = {
     update: PropTypes.func,
-    timeValues: PropTypes.object,
-    registerValidation: PropTypes.func,
-    isFormValid: PropTypes.func
+    timeValues: PropTypes.object
   };
+
 
   getChildContext() {
     return {
       update: this.update,
-      timeValues: this.props.diary.data ? this.props.diary.data.times : {},
-      registerValidation: this.registerValidation,
-      isFormValid: this.isFormValid
+      timeValues: this.props.diary.data ? this.props.diary.data.times : {}
     };
   };
 
@@ -45,43 +43,20 @@ export default class Diary extends Component {
 
     this.handlePostForm = this.handlePostForm.bind(this);
     this.update = this.update.bind(this);
-    this.registerValidation = this.registerValidation.bind(this);
-    this.removeValidation = this.removeValidation.bind(this);
-    this.isFormValid = this.isFormValid.bind(this);
   }
 
   update(name, value) {
     this.props.updateDiary(name, value);
   }
 
-  handlePostForm(event) {
-    event.preventDefault();
-
-    if (this.isFormValid(true)) {
-      this.props.postDiaryParams({});
-    }
+  handlePostForm(postData) {
+    this.props.postDiaryParams(postData);
   }
 
   getAppropriateData(ids, blocksData, idField) {
     return _.filter(blocksData, (block) => {
       return _.includes(ids, block[idField]);
     });
-  }
-
-  registerValidation(isValidFunc) {
-    this.validations = [...this.validations, isValidFunc];
-    return this.removeValidation.bind(null, isValidFunc);
-  }
-
-  removeValidation(ref) {
-    this.validations = without(this.validations, ref);
-  }
-
-  isFormValid(showErrors) {
-    return this.validations.reduce(
-      (memo, isValidFunc) => {
-        return isValidFunc(showErrors) && memo
-      }, true)
   }
 
   componentWillMount() {
@@ -124,7 +99,7 @@ export default class Diary extends Component {
                       defaultValue={field.value}
                       name={field.id}
                       type={param.type}
-                      validate={['validateTimeParams']}
+                      validate={param.type === "text" ? ['validateTimeParams']: []}
                     />
                   )
                 })
@@ -141,16 +116,20 @@ export default class Diary extends Component {
           }
 
           return (
-            <form key={index} className={d.textBlock}>
+            <Form
+              key={index}
+              className={d.textBlock}
+              blockParams={controlBlock.parameters}
+              id={controlBlock.id}
+              onSubmit={this.handlePostForm}>
               <h3 className={d.subHeader}>Контроль назначен: {controlBlock.doctor}</h3>
 
               <FlexContainer>
                 {paramBlocks}
               </FlexContainer>
 
-              <Button className={u.right + ' ' + d.submit} options={{inlineGreen: true}} clickFunction={this.handlePostForm.bind(this, controlBlock.id)}>ЗАПИСАТЬ</Button>
-            </form>
-
+              <SubmitButton className={u.right + ' ' + d.submit} />
+            </Form>
           )
         });
       }

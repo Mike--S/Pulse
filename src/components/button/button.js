@@ -9,7 +9,7 @@ export default class Button extends Component {
   };
 
   render() {
-    const { styles, options, children, className, clickFunction, disabled } = this.props;
+    const { styles, options, children, className, clickFunction, label, disabled } = this.props;
     const { onTouchTap } = this.props;
     var buttonClass;
     if (options) {
@@ -50,9 +50,9 @@ export default class Button extends Component {
         </button>
     }
     else {
-      return <button onTouchTap={onTouchTap} className={buttonClass} onClick={clickFunction}>
-        {children}
-      </button>
+        return <button onTouchTap={onTouchTap} className={buttonClass} onClick={clickFunction}>
+          {children}
+        </button>
     }
 
   }
