@@ -5,7 +5,6 @@ import cssModules from 'react-css-modules';
 import _ from 'lodash';
 
 import * as diaryActions from '../../actions/diary/diary';
-import * as diaryActionTypes from '../../actions/actionTypes';
 
 import d from './diary.scss';
 import u from '../../assets/utils.scss';
@@ -13,6 +12,7 @@ import u from '../../assets/utils.scss';
 import Button from '../../components/button/button';
 import {Col, FlexContainer} from '../../components/layout/flex';
 import TextField from 'material-ui/TextField';
+import DatePicker_ from '../../components/diary/datePicker';
 import Form from '../../components/diary/form';
 import SubmitButton from '../../components/diary/submitButton';
 import ParamField from '../../components/diary/paramField';
@@ -152,7 +152,9 @@ export default class Diary extends Component {
 
       return (
         <div>
-          <h2 className={d.header} >24 Октября 2014, Среда</h2>
+          <h2 className={d.header} >
+            <DatePicker_ />
+          </h2>
 
           <form className={d.textBlock}>
             <h3 className={d.subHeader}>Самочувствие</h3>

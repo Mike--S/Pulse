@@ -20,7 +20,8 @@ export default class Root extends Component {
 
     const muiTheme = getMuiTheme({
       palette: {
-        primary1Color: styles.darkGreen
+        primary1Color: styles.darkGreen,
+        primary2Color: styles.violet
       }
     });
 

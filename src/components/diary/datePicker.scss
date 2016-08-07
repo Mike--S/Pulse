@@ -1,0 +1,18 @@
+@import "../../assets/variables";
+
+.datePicker {
+  hr:first-child {
+	border-top: none $gray-normal !important;
+	border-right: none $gray-normal !important;
+	border-bottom: 1px solid $gray-normal !important;
+	border-left: none $gray-normal !important;
+  }
+
+  input {
+	color: $gray-dark !important;
+  }
+}
+
+:export {
+  fontSize: $fz-big;
+}

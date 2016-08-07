@@ -93,6 +93,7 @@ export default class ParamField extends Component {
             hintText={placeholder}
             floatingLabelText={label}
             value={value}
+            name={name}
             onChange={this.onChange}
             onBlur={this.onBlur}
             errorText={this.state.errors.length ? (
