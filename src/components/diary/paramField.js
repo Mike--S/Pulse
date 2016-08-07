@@ -75,7 +75,7 @@ export default class ParamField extends Component {
   };
 
   render() {
-    const { name, label, placeholder, type, styles } = this.props;
+    const { name, label, placeholder, type, styles, disabled } = this.props;
     const { timeValues } = this.context;
     let value = Object.keys(timeValues).length ? timeValues[name].value : 0;
     const inlineStyles = {
@@ -94,6 +94,7 @@ export default class ParamField extends Component {
             floatingLabelText={label}
             value={value}
             name={name}
+            disabled={disabled}
             onChange={this.onChange}
             onBlur={this.onBlur}
             errorText={this.state.errors.length ? (
@@ -114,6 +115,7 @@ export default class ParamField extends Component {
                 step={1}
                 sliderStyle={inlineStyles.sliderStyle}
                 value={value}
+                disabled={disabled}
                 onChange={this.onChange}
               />
             </Col>
@@ -133,6 +135,7 @@ export default class ParamField extends Component {
             className={styles.checkbox}
             label={label}
             checked={value}
+            disabled={disabled}
             onCheck={this.onChange}
           />
         )

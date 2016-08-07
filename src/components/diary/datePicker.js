@@ -28,7 +28,7 @@ export default class DatePicker_ extends Component {
   }
 
   render() {
-    const { styles } = this.props;
+    const { styles, date } = this.props;
     const inlineStyles = {
       fontSize: styles.fontSize
     };
@@ -38,7 +38,7 @@ export default class DatePicker_ extends Component {
         className={styles.datePicker}
         textFieldStyle={inlineStyles}
         maxDate={this.maxDate}
-        defaultDate={this.maxDate}
+        value={date || this.maxDate}
         formatDate={new DateTimeFormat('ru-RU', {
           day: 'numeric',
           month: 'long',
@@ -49,6 +49,7 @@ export default class DatePicker_ extends Component {
         cancelLabel="Отмена"
         DateTimeFormat={DateTimeFormat}
         locale="ru"
+        onChange={this.props.onChange}
       />
     )
   }

@@ -1,5 +1,6 @@
 import { CALL_API } from 'redux-api-middleware';
 import { normalize } from 'normalizr';
+import _ from 'lodash';
 
 export function fetch(method, endpoint, requestType, successType, failureType, schema) {
   return {
@@ -16,7 +17,14 @@ export function fetch(method, endpoint, requestType, successType, failureType, s
             const contentType = res.headers.get('Content-Type');
             if (contentType && ~contentType.indexOf('json')) {
               if(schema) {
-                return res.json().then((json) => normalize(json, schema));
+                return res.json().then((json) => {
+                  if(json && !_.isEmpty(json)) {
+                    return normalize(json, schema);
+                  }
+                  else {
+                    return {};
+                  }
+                })
               }
               else {
                 return res.json();

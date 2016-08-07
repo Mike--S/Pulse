@@ -3,16 +3,22 @@ import * as types from './../actions/actionTypes';
 import _ from 'lodash';
 
 const initialState = {
+  data: {
+
+  },
+  date: new Date()
 };
 
 export default createReducer(initialState, {
   [types.FETCH_DIARY_DATA](state) {
     return {
+      ...state,
       isFetching: true
     }
   },
   [types.FETCH_DIARY_DATA_SUCCESS](state, data) {
     return {
+      ...state,
       data: data.payload.entities,
       isFetching: false
     };
@@ -41,6 +47,12 @@ export default createReducer(initialState, {
 
     return {
       ...state
+    }
+  },
+  [types.UPDATE_DATE](state, data) {
+    return {
+      ...state,
+      date: data.date
     }
   }
 });

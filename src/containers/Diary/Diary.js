@@ -46,6 +46,7 @@ export default class Diary extends Component {
     this.updateTimeParam = this.updateTimeParam.bind(this);
     this.updateHealth = this.updateHealth.bind(this);
     this.handlePostHealth = this.handlePostHealth.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
 
@@ -69,6 +70,13 @@ export default class Diary extends Component {
     });
   }
 
+  handleDateChange(emptyEvent, date) {
+    this.props.updateDate(date);
+    this.props.loadDiary({
+      date
+    })
+  }
+
   getAppropriateData(ids, blocksData, idField) {
     return _.filter(blocksData, (block) => {
       return _.includes(ids, block[idField]);
@@ -89,91 +97,113 @@ export default class Diary extends Component {
       timeBlocks;
 
     let diaryData = diary.data;
+    let date = diary.date;
     let isFetching = diary && diary.isFetching;
 
     if (isFetching === undefined || isFetching) {
       return(<h2>Loading...</h2>)
     }
     else {
-      if (Object.keys(diaryData.controlBlock).length !== 0) {
-        controlBlocks = _.map(diaryData.controlBlock, (controlBlock, index) => {
-
-          if (Object.keys(diaryData.params).length !== 0) {
-            let paramsBlockData =this.getAppropriateData(controlBlock.parameters, diaryData.params, 'id');
-
-            paramBlocks = _.map(paramsBlockData,(param) => {
-
-              if (Object.keys(diaryData.times).length !== 0 ) {
-                let timeBlocksData = this.getAppropriateData(param.time, diaryData.times, 'id');
-                timeBlocks = _.map(timeBlocksData, (field)=> {
-
-                  return (
-                    <ParamField
-                      key={field.id}
-                      placeholder={param.hint}
-                      label={field.label}
-                      defaultValue={field.value}
-                      name={field.id}
-                      type={param.type}
-                      validate={param.type === "text" ? ['validateTimeParams']: []}
-                    />
-                  )
-                })
-              }
-
-              return(
-                <Col key={param.id} xs={12} md={6} lg={4} options={{indents: true}}>
-                  <h4 className={d.title}>{param.title}</h4>
-
-                  {timeBlocks}
-                </Col>
-              )
-            });
-          }
-
-          return (
-            <Form
-              key={index}
-              className={d.textBlock}
-              blockParams={controlBlock.parameters}
-              id={controlBlock.id}
-              onSubmit={this.handlePostForm}>
-              <h3 className={d.subHeader}>Контроль назначен: {controlBlock.doctor}</h3>
-
-              <FlexContainer>
-                {paramBlocks}
-              </FlexContainer>
-
-              <SubmitButton className={u.right + ' ' + d.submit} />
-            </Form>
-          )
-        });
+      if (!diaryData) {
+        return(
+          <div>
+            <h2 className={d.header} >
+              <DatePicker_ onChange={this.handleDateChange} date={date} />
+            </h2>
+            <div className={d.textBlock}>
+              <p> Извините, нет данных на текущую дату </p>
+            </div>
+          </div>
+        )
       }
+      else {
+        if (Object.keys(diaryData.controlBlock).length !== 0) {
+          controlBlocks = _.map(diaryData.controlBlock, (controlBlock, index) => {
+            let disabled = controlBlock.disabled;
 
-      return (
-        <div>
-          <h2 className={d.header} >
-            <DatePicker_ />
-          </h2>
+            if (Object.keys(diaryData.params).length !== 0) {
+              let paramsBlockData =this.getAppropriateData(controlBlock.parameters, diaryData.params, 'id');
 
-          <form className={d.textBlock}>
-            <h3 className={d.subHeader}>Самочувствие</h3>
+              paramBlocks = _.map(paramsBlockData,(param) => {
 
-            <TextField
-              id={"health"}
-              multiLine={true}
-              rows={1}
-              fullWidth={true}
-              defaultValue={diaryData.healthBlock[0].text}
-              onChange={this.updateHealth}
-            />
+                if (Object.keys(diaryData.times).length !== 0 ) {
+                  let timeBlocksData = this.getAppropriateData(param.time, diaryData.times, 'id');
+                  timeBlocks = _.map(timeBlocksData, (field)=> {
 
-            <Button clickFunction={this.handlePostHealth.bind(this, diaryData.healthBlock[0].text)} className={u.right + ' ' + d.submit} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
-          </form>
+                    return (
+                      <ParamField
+                        key={field.id}
+                        placeholder={param.hint}
+                        label={field.label}
+                        defaultValue={field.value}
+                        name={field.id}
+                        type={param.type}
+                        disabled={disabled}
+                        validate={param.type === "text" ? ['validateTimeParams']: []}
+                      />
+                    )
+                  })
+                }
 
-          {controlBlocks}
-        </div>
-      )
+                return(
+                  <Col key={param.id} xs={12} md={6} lg={4} options={{indents: true}}>
+                    <h4 className={d.title}>{param.title}</h4>
+
+                    {timeBlocks}
+                  </Col>
+                )
+              });
+            }
+
+            return (
+              <Form
+                key={index}
+                className={d.textBlock}
+                blockParams={controlBlock.parameters}
+                id={controlBlock.id}
+                onSubmit={this.handlePostForm}>
+                <h3 className={d.subHeader}>Контроль назначен: {controlBlock.doctor}</h3>
+
+                <FlexContainer>
+                  {paramBlocks}
+                </FlexContainer>
+
+                {!disabled && <SubmitButton className={u.right + ' ' + d.submit} />}
+              </Form>
+            )
+          });
+        }
+        let disabled = diaryData.healthBlock[0].disabled;
+        return (
+          <div>
+            <h2 className={d.header} >
+              <DatePicker_ onChange={this.handleDateChange} date={date} />
+            </h2>
+
+            <form className={d.textBlock}>
+              <h3 className={d.subHeader}>Самочувствие</h3>
+
+              <TextField
+                id={"health"}
+                multiLine={true}
+                rows={1}
+                fullWidth={true}
+                defaultValue={diaryData.healthBlock[0].text}
+                onChange={this.updateHealth}
+                disabled={disabled}
+              />
+
+              {!disabled &&
+                <Button clickFunction={this.handlePostHealth.bind(this, diaryData.healthBlock[0].text)}
+                      className={u.right + ' ' + d.submit}
+                      options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
+              }
+            </form>
+
+            {controlBlocks}
+          </div>
+        )
+      }
     }
   }
 }

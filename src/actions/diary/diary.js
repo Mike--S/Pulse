@@ -31,6 +31,7 @@ function diaryUpdate(name, value) {
     value: value
   }
 }
+
 function healthBlockUpdate(text) {
   return {
     type: types.UPDATE_HEALTH_BLOCK,
@@ -38,9 +39,23 @@ function healthBlockUpdate(text) {
   }
 }
 
-export function loadDiary() {
+function dateUpdate(date) {
+  return {
+    type: types.UPDATE_DATE,
+    date: date
+  }
+}
+
+export function loadDiary(getParams) {
+  var memo = '?';
+  if (typeof getParams == 'object') {
+    for(let param in getParams) {
+      let value = getParams[param];
+      memo += param + '=' + value + '&';
+    }
+  }
   return (dispatch) => {
-    return dispatch(callApi.fetch('GET', API_ROOT + 'diary', types.FETCH_DIARY_DATA, types.FETCH_DIARY_DATA_SUCCESS, types.FETCH_DIARY_DATA_FAILURE, controlBlocksSchema));
+    return dispatch(callApi.fetch('GET', API_ROOT + 'diary' + memo, types.FETCH_DIARY_DATA, types.FETCH_DIARY_DATA_SUCCESS, types.FETCH_DIARY_DATA_FAILURE, controlBlocksSchema));
   }
 }
 
@@ -65,6 +80,12 @@ export function updateDiary(name, value) {
 export function updateHealthBlock(text) {
   return (dispatch) => {
     dispatch(healthBlockUpdate(text))
+  }
+}
+
+export function updateDate(date) {
+  return (dispatch) => {
+    dispatch(dateUpdate(date))
   }
 }
 
