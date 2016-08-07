@@ -75,15 +75,21 @@ export default class ParamField extends Component {
   };
 
   render() {
-    const { name, label, placeholder, type } = this.props;
+    const { name, label, placeholder, type, styles } = this.props;
     const { timeValues } = this.context;
     let value = Object.keys(timeValues).length ? timeValues[name].value : 0;
+    const inlineStyles = {
+      sliderStyle: {
+        marginTop: styles.sliderTopMargin,
+        marginBottom: '0'
+      }
+    };
 
     switch(type) {
       case 'text': {
         return(
           <TextField
-            fullWidth={true}
+            className={styles.textField}
             hintText={placeholder}
             floatingLabelText={label}
             value={value}
@@ -105,7 +111,7 @@ export default class ParamField extends Component {
                 min={0}
                 max={10}
                 step={1}
-                sliderStyle={{marginTop: '54px', marginBottom: '0'}}
+                sliderStyle={inlineStyles.sliderStyle}
                 value={value}
                 onChange={this.onChange}
               />
@@ -123,10 +129,10 @@ export default class ParamField extends Component {
       case 'boolean': {
         return(
           <Checkbox
+            className={styles.checkbox}
             label={label}
             checked={value}
             onCheck={this.onChange}
-            style={{marginTop: '50px'}}
           />
         )
       }

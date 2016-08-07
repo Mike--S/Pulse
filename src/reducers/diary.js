@@ -35,5 +35,12 @@ export default createReducer(initialState, {
     return {
       ...state
     }
+  },
+  [types.UPDATE_HEALTH_BLOCK](state, data) {
+    state.data.healthBlock[0].text = data.text;
+
+    return {
+      ...state
+    }
   }
 });

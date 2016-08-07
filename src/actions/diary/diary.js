@@ -31,6 +31,12 @@ function diaryUpdate(name, value) {
     value: value
   }
 }
+function healthBlockUpdate(text) {
+  return {
+    type: types.UPDATE_HEALTH_BLOCK,
+    text: text
+  }
+}
 
 export function loadDiary() {
   return (dispatch) => {
@@ -40,13 +46,25 @@ export function loadDiary() {
 
 export function postDiaryParams(postDiaryData) {
   return (dispatch) => {
-    return dispatch(callApi.post('POST', API_ROOT + 'diary', types.POST_DIARY_DATA, types.POST_DIARY_DATA_SUCCESS, types.POST_DIARY_DATA_FAILURE, postDiaryData));
+    return dispatch(callApi.post('POST', API_ROOT + 'control', types.POST_DIARY_DATA, types.POST_DIARY_DATA_SUCCESS, types.POST_DIARY_DATA_FAILURE, postDiaryData));
+  }
+}
+
+export function postHealthBlock(postHealthBlock) {
+  return (dispatch) => {
+    return dispatch(callApi.post('POST', API_ROOT + 'health', types.POST_DIARY_DATA, types.POST_DIARY_DATA_SUCCESS, types.POST_DIARY_DATA_FAILURE, postHealthBlock));
   }
 }
 
 export function updateDiary(name, value) {
   return (dispatch) => {
     dispatch(diaryUpdate(name, value))
+  }
+}
+
+export function updateHealthBlock(text) {
+  return (dispatch) => {
+    dispatch(healthBlockUpdate(text))
   }
 }
 

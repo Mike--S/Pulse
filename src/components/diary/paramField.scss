@@ -1,0 +1,18 @@
+.textField {
+  vertical-align: top;
+  width: 49.5% !important;
+
+  &:nth-child(odd) {
+	margin-left: 1%;
+  }
+}
+
+.checkbox {
+  display: inline-block !important;
+  margin-top: 50px;
+  width: 50% !important;
+}
+
+:export {
+  sliderTopMargin: 54px
+}

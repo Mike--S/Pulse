@@ -5,6 +5,7 @@ import cssModules from 'react-css-modules';
 import _ from 'lodash';
 
 import * as diaryActions from '../../actions/diary/diary';
+import * as diaryActionTypes from '../../actions/actionTypes';
 
 import d from './diary.scss';
 import u from '../../assets/utils.scss';
@@ -31,7 +32,7 @@ export default class Diary extends Component {
 
   getChildContext() {
     return {
-      update: this.update,
+      update: this.updateTimeParam,
       timeValues: this.props.diary.data ? this.props.diary.data.times : {}
     };
   };
@@ -42,15 +43,30 @@ export default class Diary extends Component {
     this.validations = [];
 
     this.handlePostForm = this.handlePostForm.bind(this);
-    this.update = this.update.bind(this);
+    this.updateTimeParam = this.updateTimeParam.bind(this);
+    this.updateHealth = this.updateHealth.bind(this);
+    this.handlePostHealth = this.handlePostHealth.bind(this);
   }
 
-  update(name, value) {
+
+  updateTimeParam(name, value) {
     this.props.updateDiary(name, value);
+  }
+
+  updateHealth(name, value) {
+    this.props.updateHealthBlock(value);
   }
 
   handlePostForm(postData) {
     this.props.postDiaryParams(postData);
+  }
+
+  handlePostHealth(text, event) {
+    event.preventDefault();
+
+    this.props.postHealthBlock({
+      text
+    });
   }
 
   getAppropriateData(ids, blocksData, idField) {
@@ -146,10 +162,11 @@ export default class Diary extends Component {
               multiLine={true}
               rows={1}
               fullWidth={true}
-              defaultValue={diaryData.healthBlock.text}
+              defaultValue={diaryData.healthBlock[0].text}
+              onChange={this.updateHealth}
             />
 
-            <Button className={u.right + ' ' + d.submit} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
+            <Button clickFunction={this.handlePostHealth.bind(this, diaryData.healthBlock[0].text)} className={u.right + ' ' + d.submit} options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
           </form>
 
           {controlBlocks}

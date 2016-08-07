@@ -10,7 +10,7 @@ export default class Form extends Component {
   static childContextTypes = {
     submitForm: PropTypes.func,
     registerValidation: PropTypes.func,
-    isFormValid: PropTypes.func,
+    isFormValid: PropTypes.func
   };
 
   static contextTypes = {
@@ -19,7 +19,6 @@ export default class Form extends Component {
 
   constructor() {
     super();
-
     this.validations = [];
 
     this.getTimeDataByParamIds = this.getTimeDataByParamIds.bind(this);

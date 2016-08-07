@@ -13,22 +13,22 @@ export function validateTimeParams(name, value) {
     switch(paramName) {
       case 'AT': {
           regEXP = /^\d{2,3}\/\d{2}$/g;
-          return regEXP.test(value) ? [] : ['неправильный формат данных, правильный - xx(x)/xx'];
+          return regEXP.test(value) ? [] : ['формат - xx(x)/xx'];
         }
         break;
       case 'CHSS': {
           regEXP = /^\d{2,3}$/g;
-          return regEXP.test(value) ? [] : ['неправильный формат данных, правильный - xx(x)'];
+          return regEXP.test(value) ? [] : ['формат - xx(x)'];
         }
         break;
       case 'BLOOD': {
           regEXP = /^\d{1,2}\.\d{1,2}$/g;
-          return regEXP.test(value) ? [] : ['неправильный формат данных, правильный - x(x).x(x)'];
+          return regEXP.test(value) ? [] : ['формат - x(x).x(x)'];
         }
         break;
       case 'TEMPERATURE': {
           regEXP = /^\d{2}\.\d{1}$/g;
-          return regEXP.test(value) ? [] : ['неправильный формат данных, правильный - xx.x'];
+          return regEXP.test(value) ? [] : ['формат - xx.x'];
         }
         break;
     }
