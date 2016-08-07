@@ -10,10 +10,12 @@ const controlBlockSchema = new Schema('controlBlock');
 const paramsSchema = new Schema('params');
 const timesSchems = new Schema('times');
 const healthBlockSchema = new Schema('healthBlock', {idAttribute: () => '0'});
+const recommendationsBlockSchema = new Schema('recommendations', {idAttribute: () => '0'});
 
 controlBlocksSchema.define({
   controlBlocks: arrayOf(controlBlockSchema),
-  healthBlock: healthBlockSchema
+  healthBlock: healthBlockSchema,
+  recommendations: recommendationsBlockSchema
 });
 
 controlBlockSchema.define({

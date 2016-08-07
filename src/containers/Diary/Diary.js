@@ -173,32 +173,47 @@ export default class Diary extends Component {
             )
           });
         }
-        let disabled = diaryData.healthBlock[0].disabled;
+        let disabled = diaryData.healthBlock && diaryData.healthBlock[0].disabled;
+        let recommendations = diaryData.recommendations;
+        let healthBlock = diaryData.healthBlock;
         return (
           <div>
             <h2 className={d.header} >
               <DatePicker_ onChange={this.handleDateChange} date={date} />
             </h2>
 
-            <form className={d.textBlock}>
-              <h3 className={d.subHeader}>Самочувствие</h3>
+            {healthBlock && healthBlock[0] &&
+              <form className={d.textBlock}>
+                <h3 className={d.subHeader}>Самочувствие</h3>
 
-              <TextField
-                id={"health"}
-                multiLine={true}
-                rows={1}
-                fullWidth={true}
-                defaultValue={diaryData.healthBlock[0].text}
-                onChange={this.updateHealth}
-                disabled={disabled}
-              />
+                <TextField
+                  id={"health"}
+                  multiLine={true}
+                  rows={1}
+                  fullWidth={true}
+                  defaultValue={healthBlock[0].text}
+                  onChange={this.updateHealth}
+                  disabled={disabled}
+                />
 
-              {!disabled &&
-                <Button clickFunction={this.handlePostHealth.bind(this, diaryData.healthBlock[0].text)}
-                      className={u.right + ' ' + d.submit}
-                      options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
-              }
-            </form>
+                {!disabled &&
+                  <Button clickFunction={this.handlePostHealth.bind(this, diaryData.healthBlock[0].text)}
+                        className={u.right + ' ' + d.submit}
+                        options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
+                }
+              </form>
+            }
+
+            {recommendations && recommendations[0] &&
+              <div className={d.textBlock}>
+                <h3 className={d.subHeader}>{'Рекомендации от ' + new Date(recommendations[0].setDate).toLocaleDateString('ru', {month: 'long', year: 'numeric', day: 'numeric'})}</h3>
+
+                <p className={d.innerText}>
+                  {recommendations[0].text}
+                </p>
+
+              </div>
+            }
 
             {controlBlocks}
           </div>
