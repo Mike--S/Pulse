@@ -19,7 +19,8 @@ export default class ParamField extends Component {
   static contextTypes = {
     update: PropTypes.func.isRequired,
     registerValidation: PropTypes.func.isRequired,
-    timeValues: PropTypes.object.isRequired
+    timeValues: PropTypes.object,
+    self: PropTypes.bool.isRequired
   };
 
   constructor(props) {
@@ -45,7 +46,7 @@ export default class ParamField extends Component {
   }
 
   updateValue(value) {
-    this.context.update(this.props.name, value);
+    this.context.update(this.props.name, value, this.context.self);
     if (this.state.errors.length) {
       setTimeout(() => this.isValid(true), 0);
     }

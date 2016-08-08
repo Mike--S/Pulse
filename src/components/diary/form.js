@@ -34,7 +34,7 @@ export default class Form extends Component {
 
     if (this.isFormValid(true)) {
       this.props.onSubmit({
-        controlBlockId: this.props.id,
+        controlBlockId: this.props.id || '',
         timeParams: timeParams
       })
     }

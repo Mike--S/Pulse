@@ -9,13 +9,10 @@ import * as diaryActions from '../../actions/diary/diary';
 import d from './diary.scss';
 import u from '../../assets/utils.scss';
 
+import ParamsBlock from '../../components/diary/paramsBlock';
 import Button from '../../components/button/button';
-import {Col, FlexContainer} from '../../components/layout/flex';
 import TextField from 'material-ui/TextField';
 import DatePicker_ from '../../components/diary/datePicker';
-import Form from '../../components/diary/form';
-import SubmitButton from '../../components/diary/submitButton';
-import ParamField from '../../components/diary/paramField';
 
 @cssModules([d, u])
 
@@ -26,14 +23,18 @@ export default class Diary extends Component {
 
   static childContextTypes = {
     update: PropTypes.func,
-    timeValues: PropTypes.object
+    handlePostForm: PropTypes.func,
+    handlePostFormSelf: PropTypes.func,
+    diaryData: PropTypes.object
   };
 
 
   getChildContext() {
     return {
       update: this.updateTimeParam,
-      timeValues: this.props.diary.data ? this.props.diary.data.times : {}
+      handlePostForm: this.handlePostForm,
+      handlePostFormSelf: this.handlePostFormSelf,
+      diaryData: this.props.diary.data ? this.props.diary.data : {}
     };
   };
 
@@ -44,14 +45,14 @@ export default class Diary extends Component {
 
     this.handlePostForm = this.handlePostForm.bind(this);
     this.updateTimeParam = this.updateTimeParam.bind(this);
+    this.handlePostFormSelf = this.handlePostFormSelf.bind(this);
     this.updateHealth = this.updateHealth.bind(this);
     this.handlePostHealth = this.handlePostHealth.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-
-  updateTimeParam(name, value) {
-    this.props.updateDiary(name, value);
+  updateTimeParam(name, value, self) {
+    this.props.updateDiary(name, value, self);
   }
 
   updateHealth(name, value) {
@@ -60,6 +61,10 @@ export default class Diary extends Component {
 
   handlePostForm(postData) {
     this.props.postDiaryParams(postData);
+  }
+
+  handlePostFormSelf(postData) {
+    this.props.postDiaryParamsSelf(postData);
   }
 
   handlePostHealth(text, event) {
@@ -77,12 +82,6 @@ export default class Diary extends Component {
     })
   }
 
-  getAppropriateData(ids, blocksData, idField) {
-    return _.filter(blocksData, (block) => {
-      return _.includes(ids, block[idField]);
-    });
-  }
-
   componentWillMount() {
     this.props.loadDiary();
   }
@@ -91,10 +90,6 @@ export default class Diary extends Component {
     const { styles, diary } = this.props;
     const d = styles[0];
     const u = styles[1];
-
-    let paramBlocks,
-      controlBlocks,
-      timeBlocks;
 
     let diaryData = diary.data;
     let date = diary.date;
@@ -117,71 +112,22 @@ export default class Diary extends Component {
         )
       }
       else {
-        if (Object.keys(diaryData.controlBlock).length !== 0) {
-          controlBlocks = _.map(diaryData.controlBlock, (controlBlock, index) => {
-            let disabled = controlBlock.disabled;
-
-            if (Object.keys(diaryData.params).length !== 0) {
-              let paramsBlockData =this.getAppropriateData(controlBlock.parameters, diaryData.params, 'id');
-
-              paramBlocks = _.map(paramsBlockData,(param) => {
-
-                if (Object.keys(diaryData.times).length !== 0 ) {
-                  let timeBlocksData = this.getAppropriateData(param.time, diaryData.times, 'id');
-                  timeBlocks = _.map(timeBlocksData, (field)=> {
-
-                    return (
-                      <ParamField
-                        key={field.id}
-                        placeholder={param.hint}
-                        label={field.label}
-                        defaultValue={field.value}
-                        name={field.id}
-                        type={param.type}
-                        disabled={disabled}
-                        validate={param.type === "text" ? ['validateTimeParams']: []}
-                      />
-                    )
-                  })
-                }
-
-                return(
-                  <Col key={param.id} xs={12} md={6} lg={4} options={{indents: true}}>
-                    <h4 className={d.title}>{param.title}</h4>
-
-                    {timeBlocks}
-                  </Col>
-                )
-              });
-            }
-
-            return (
-              <Form
-                key={index}
-                className={d.textBlock}
-                blockParams={controlBlock.parameters}
-                id={controlBlock.id}
-                onSubmit={this.handlePostForm}>
-                <h3 className={d.subHeader}>Контроль назначен: {controlBlock.doctor}</h3>
-
-                <FlexContainer>
-                  {paramBlocks}
-                </FlexContainer>
-
-                {!disabled && <SubmitButton className={u.right + ' ' + d.submit} />}
-              </Form>
-            )
-          });
-        }
-        let disabled = diaryData.healthBlock && diaryData.healthBlock[0].disabled;
+        let healthDisabled = diaryData.healthBlock && diaryData.healthBlock[0].disabled;
         let recommendations = diaryData.recommendations;
         let healthBlock = diaryData.healthBlock;
+        let controlBlocks, selfControlBlocks;
+
+        if (Object.keys(diaryData.controlBlock).length !== 0) {
+          controlBlocks = _.map(diaryData.controlBlock, (controlBlock, index) => <ParamsBlock self={false} key={index} paramsBlock={controlBlock} />)
+        }
+        if (Object.keys(diaryData.selfControlBlock).length !== 0) {
+          selfControlBlocks = _.map(diaryData.selfControlBlock, (controlBlock, index) => <ParamsBlock self={true} key={index} paramsBlock={controlBlock} />)
+        }
         return (
           <div>
             <h2 className={d.header} >
               <DatePicker_ onChange={this.handleDateChange} date={date} />
             </h2>
-
             {healthBlock && healthBlock[0] &&
               <form className={d.textBlock}>
                 <h3 className={d.subHeader}>Самочувствие</h3>
@@ -193,10 +139,10 @@ export default class Diary extends Component {
                   fullWidth={true}
                   defaultValue={healthBlock[0].text}
                   onChange={this.updateHealth}
-                  disabled={disabled}
+                  disabled={healthDisabled}
                 />
 
-                {!disabled &&
+                {!healthDisabled &&
                   <Button clickFunction={this.handlePostHealth.bind(this, diaryData.healthBlock[0].text)}
                         className={u.right + ' ' + d.submit}
                         options={{inlineGreen: true}}>ЗАПИСАТЬ</Button>
@@ -214,8 +160,8 @@ export default class Diary extends Component {
 
               </div>
             }
-
             {controlBlocks}
+            {selfControlBlocks}
           </div>
         )
       }

@@ -31,6 +31,16 @@ export function validateTimeParams(name, value) {
           return regEXP.test(value) ? [] : ['формат - xx.x'];
         }
         break;
+      case 'PULSE': {
+          regEXP = /^\d{2,3}$/g;
+          return regEXP.test(value) ? [] : ['формат - xx(x)'];
+        }
+        break;
+      case 'DYHANIE': {
+          regEXP = /^\d{2}$/g;
+          return regEXP.test(value) ? [] : ['формат - xx'];
+        }
+        break;
     }
   }
 }

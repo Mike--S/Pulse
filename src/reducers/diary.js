@@ -42,6 +42,13 @@ export default createReducer(initialState, {
       ...state
     }
   },
+  [types.UPDATE_DIARY_DATA_SELF](state, data) {
+    state.data.selfTimes[data.name].value = data.value;
+
+    return {
+      ...state
+    }
+  },
   [types.UPDATE_HEALTH_BLOCK](state, data) {
     state.data.healthBlock[0].text = data.text;
 
