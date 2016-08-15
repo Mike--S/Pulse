@@ -7,6 +7,7 @@ import _ from 'lodash';
 import Form from '../../components/diary/form';
 import SubmitButton from '../../components/diary/submitButton';
 import ParamField from '../../components/diary/paramField';
+import addParamButton from '../../components/diary/addParamButton';
 import {Col, FlexContainer} from '../../components/layout/flex';
 
 @cssModules([d,u])
@@ -26,7 +27,7 @@ export default class ParamsBlock extends Component {
     self: PropTypes.bool.isRequired,
     timeValues: PropTypes.object
   };
-  
+
   getChildContext() {
     return {
       self: this.props.self,
@@ -84,13 +85,18 @@ export default class ParamsBlock extends Component {
       });
     }
 
+    let onSubmit = self ? this.context.handlePostFormSelf : this.context.handlePostForm,
+        titleText = self ? 'Самостоятельный контроль' : 'Контроль назначен: ' + paramsBlock.doctor;
+
     return (
       <Form
         className={d.textBlock}
         blockParams={paramsBlock.parameters}
         id={paramsBlock.id}
-        onSubmit={self ? this.context.handlePostFormSelf : this.context.handlePostForm}>
-        <h3 className={d.subHeader}>{paramsBlock.doctor ? 'Контроль назначен: ' + paramsBlock.doctor: 'Самостоятельный контроль'}</h3>
+        onSubmit={onSubmit}>
+        <h3 className={d.subHeader}>{titleText}</h3>
+
+        {self && <addParamButton className={u.right} />}
 
         <FlexContainer>
           {paramBlocks}

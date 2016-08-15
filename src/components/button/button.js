@@ -15,23 +15,27 @@ export default class Button extends Component {
     if (options) {
       switch(true) {
         case options.emphasize: {
-            buttonClass = styles.buttonEmphasized;
+            buttonClass = styles.emphasized;
           }
         break;
         case options.inline: {
-            buttonClass = styles.buttonInline;
+            buttonClass = styles.inline;
           }
         break;
         case options.inlineGreen: {
-            buttonClass = styles.buttonInlineGreen;
+            buttonClass = styles.inlineGreen;
           }
         break;
         case options.flat: {
-            buttonClass = styles.buttonFlat;
+            buttonClass = styles.flat;
           }
         break;
         case options.ftatGreen: {
-            buttonClass = styles.buttonFlatGreen;
+            buttonClass = styles.flatGreen;
+          }
+        break;
+        case options.floatingAction: {
+            buttonClass = styles.floatingAction;
           }
         break;
         default: {
@@ -50,9 +54,9 @@ export default class Button extends Component {
         </button>
     }
     else {
-        return <button onTouchTap={onTouchTap} className={buttonClass} onClick={clickFunction}>
-          {children}
-        </button>
+      return <button onTouchTap={onTouchTap} className={buttonClass} onClick={clickFunction}>
+        {children}
+      </button>
     }
 
   }

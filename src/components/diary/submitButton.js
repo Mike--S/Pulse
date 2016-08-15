@@ -3,7 +3,7 @@ import Button from '../button/button';
 
 export default class SubmitButton extends Component {
   static propTypes = {
-
+    className: PropTypes.string
   };
 
   static contextTypes = {
