@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Form from '../../components/diary/form';
 import SubmitButton from '../../components/diary/submitButton';
 import ParamField from '../../components/diary/paramField';
-import addParamButton from '../../components/diary/addParamButton';
+import AddParamButton from '../../components/diary/addParamButton';
 import {Col, FlexContainer} from '../../components/layout/flex';
 
 @cssModules([d,u])
@@ -96,7 +96,7 @@ export default class ParamsBlock extends Component {
         onSubmit={onSubmit}>
         <h3 className={d.subHeader}>{titleText}</h3>
 
-        {self && <addParamButton className={u.right} />}
+        {self && <AddParamButton className={u.right} />}
 
         <FlexContainer>
           {paramBlocks}
