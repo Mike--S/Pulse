@@ -7,8 +7,8 @@ export default class AddParamButton extends Component {
   };
 
   render() {
-    const {className} = this.props;
+    const {className, clickFunction} = this.props;
 
-    return <Button options={{floatingAction: true}} className={className}>+</Button>
+    return <Button clickFunction={clickFunction} options={{floatingAction: true}} className={className}>+</Button>
   }
 }

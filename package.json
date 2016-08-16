@@ -50,7 +50,7 @@
     "json-loader": "^0.5.4",
     "lodash": "^4.13.1",
     "lodash.without": "^4.3.0",
-    "material-ui": "^0.15.3",
+    "material-ui": "^0.15.4",
     "mocha": "^2.4.5",
     "node-sass": "^3.7.0",
     "nodemon": "^1.9.2",

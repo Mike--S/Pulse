@@ -8,6 +8,7 @@ import Form from '../../components/diary/form';
 import SubmitButton from '../../components/diary/submitButton';
 import ParamField from '../../components/diary/paramField';
 import AddParamButton from '../../components/diary/addParamButton';
+import AddParamModalDialog from '../../components/diary/AddParamModalDialog';
 import {Col, FlexContainer} from '../../components/layout/flex';
 
 @cssModules([d,u])
@@ -28,6 +29,19 @@ export default class ParamsBlock extends Component {
     timeValues: PropTypes.object
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      modalDialog: {
+        open: false
+      }
+    };
+
+    this.handleAddParam = this.handleAddParam.bind(this);
+    this.handleCloseParamModal = this.handleCloseParamModal.bind(this);
+  }
+
   getChildContext() {
     return {
       self: this.props.self,
@@ -39,6 +53,24 @@ export default class ParamsBlock extends Component {
     return _.filter(blocksData, (block) => {
       return _.includes(ids, block.id);
     });
+  }
+
+  handleAddParam(event) {
+    event.preventDefault();
+
+    this.setState({
+      modalDialog:{
+        open : true
+      }
+    })
+  }
+
+  handleCloseParamModal() {
+    this.setState({
+      modalDialog:{
+        open : false
+      }
+    })
   }
 
   render() {
@@ -96,7 +128,8 @@ export default class ParamsBlock extends Component {
         onSubmit={onSubmit}>
         <h3 className={d.subHeader}>{titleText}</h3>
 
-        {self && <AddParamButton className={u.right} />}
+        {self && <AddParamButton clickFunction={this.handleAddParam} className={u.right} />}
+        {self && <AddParamModalDialog closeFunction={this.handleCloseParamModal} open={this.state.modalDialog.open} />}
 
         <FlexContainer>
           {paramBlocks}
