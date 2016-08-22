@@ -119,25 +119,42 @@ export default class ParamsBlock extends Component {
 
     let onSubmit = self ? this.context.handlePostFormSelf : this.context.handlePostForm,
         titleText = self ? 'Самостоятельный контроль' : 'Контроль назначен: ' + paramsBlock.doctor;
+    if (self) {
+      return (
+        <Form
+          className={d.textBlock}
+          blockParams={paramsBlock.parameters}
+          id={paramsBlock.id}
+          onSubmit={onSubmit}>
+          <h3 className={d.subHeader}>{titleText}</h3>
 
-    return (
-      <Form
-        className={d.textBlock}
-        blockParams={paramsBlock.parameters}
-        id={paramsBlock.id}
-        onSubmit={onSubmit}>
-        <h3 className={d.subHeader}>{titleText}</h3>
+          <AddParamButton clickFunction={this.handleAddParam} className={u.right} />
+          <AddParamModalDialog closeFunction={this.handleCloseParamModal} open={this.state.modalDialog.open} />
 
-        {self && <AddParamButton clickFunction={this.handleAddParam} className={u.right} />}
-        {self && <AddParamModalDialog closeFunction={this.handleCloseParamModal} open={this.state.modalDialog.open} />}
+          <FlexContainer>
+            {paramBlocks}
+          </FlexContainer>
 
-        <FlexContainer>
-          {paramBlocks}
-        </FlexContainer>
-
-        {!disabled && <SubmitButton className={u.right + ' ' + d.submit} />}
-      </Form>
-    )
-
+          {!disabled && <SubmitButton className={u.right + ' ' + d.submit} />}
+        </Form>
+      )
+    }
+    else {
+      return (
+        <Form
+          className={d.textBlock}
+          blockParams={paramsBlock.parameters}
+          id={paramsBlock.id}
+          onSubmit={onSubmit}>
+          <h3 className={d.subHeader}>{titleText}</h3>
+  
+          <FlexContainer>
+            {paramBlocks}
+          </FlexContainer>
+  
+          {!disabled && <SubmitButton className={u.right + ' ' + d.submit} />}
+        </Form>
+      )
+    }
   }
 }

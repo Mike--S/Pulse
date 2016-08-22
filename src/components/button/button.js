@@ -9,9 +9,9 @@ export default class Button extends Component {
   };
 
   render() {
-    const { styles, options, children, className, clickFunction, label, disabled } = this.props;
-    const { onTouchTap } = this.props;
+    const { styles, options, children, className, clickFunction, label, disabled, onTouchTap } = this.props;
     var buttonClass;
+    
     if (options) {
       switch(true) {
         case options.emphasize: {

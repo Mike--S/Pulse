@@ -15,6 +15,18 @@
   &:active {
 	background: darken($gray-light, 20%);
   }
+
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:active {
+	background: lighten($gray-light, 5%);
+	box-shadow: none;
+	cursor: not-allowed;
+  }
+
+  &:focus {
+	outline: none;
+  }
 }
 
 .button {
@@ -33,7 +45,6 @@
   display: inline-block;
   background: transparent;
   border: none;
-  font-size: $fz-small;
 
   @extend %commonStyles;
 }
@@ -65,6 +76,7 @@
 
 .inline {
   composes: button;
+  display: inline-block;
   width: auto;
 }
 

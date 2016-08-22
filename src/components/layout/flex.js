@@ -11,7 +11,7 @@ export class FlexContainer extends Component {
   };
 
   render() {
-    const { styles, fullH, alignItems } = this.props;
+    const { styles, fullH, alignItems, className } = this.props;
     let l = styles[0];
     let u = styles[1];
     let additionalClass = fullH ? ' ' + u.fullH : '';
@@ -24,7 +24,7 @@ export class FlexContainer extends Component {
     }
 
     return (
-      <div className={l.flexContainer + additionalClass}>
+      <div className={className + ' ' + l.flexContainer + additionalClass}>
         {this.props.children}
       </div>
     )
