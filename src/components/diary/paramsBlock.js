@@ -8,7 +8,7 @@ import Form from './form';
 import SubmitButton from './submitButton';
 import ParamField from './paramField';
 import AddParamButton from './addParamButton';
-import AddParamModalDialog from './AddParamModalDialog';
+import AddParamModalDialog from './addParamModalDialog';
 import {Col, FlexContainer} from '../../components/layout/flex';
 
 @cssModules([d,u])
