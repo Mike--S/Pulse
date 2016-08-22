@@ -4,11 +4,11 @@ import d from '../../containers/Diary/diary.scss';
 import u from '../../assets/utils.scss';
 import _ from 'lodash';
 
-import Form from '../../components/diary/form';
-import SubmitButton from '../../components/diary/submitButton';
-import ParamField from '../../components/diary/paramField';
-import AddParamButton from '../../components/diary/addParamButton';
-import AddParamModalDialog from '../../components/diary/AddParamModalDialog';
+import Form from './form';
+import SubmitButton from './submitButton';
+import ParamField from './paramField';
+import AddParamButton from './addParamButton';
+import AddParamModalDialog from './AddParamModalDialog';
 import {Col, FlexContainer} from '../../components/layout/flex';
 
 @cssModules([d,u])
@@ -147,11 +147,11 @@ export default class ParamsBlock extends Component {
           id={paramsBlock.id}
           onSubmit={onSubmit}>
           <h3 className={d.subHeader}>{titleText}</h3>
-  
+
           <FlexContainer>
             {paramBlocks}
           </FlexContainer>
-  
+
           {!disabled && <SubmitButton className={u.right + ' ' + d.submit} />}
         </Form>
       )
