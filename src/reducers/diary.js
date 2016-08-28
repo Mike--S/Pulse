@@ -23,6 +23,23 @@ export default createReducer(initialState, {
       isFetching: false
     };
   },
+  [types.FETCH_PARAMETERS](state) {
+    return {
+      ...state,
+      parameters: {
+        isFetching: true
+      }
+    }
+  },
+  [types.FETCH_PARAMETERS_SUCCESS](state, data) {
+    return {
+      ...state,
+      parameters: {
+        isFetching: false,
+        data: data.payload
+      }
+    };
+  },
   [types.POST_DIARY_DATA](state) {
     return {
       ...state,

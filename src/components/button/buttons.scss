@@ -29,6 +29,20 @@
   }
 }
 
+%floatingActionCommon {
+  $floatingSize: 40px;
+
+  border-radius: $floatingSize;
+  width: $floatingSize !important;
+  height: $floatingSize;
+  text-align: center;
+  font-size: 20px;
+
+  &:focus {
+	outline: none;
+  }
+}
+
 .button {
   display: block;
   position: relative;
@@ -101,18 +115,15 @@
 }
 
 .floatingAction {
-  $floatingSize: 40px;
+  composes: inline;
 
+  @extend %floatingActionCommon;
+}
+
+.floatingActionGreen {
   composes: inlineGreen;
-  border-radius: $floatingSize;
-  width: $floatingSize;
-  height: $floatingSize;
-  text-align: center;
-  font-size: 20px;
 
-  &:focus {
-	outline: none;
-  }
+  @extend %floatingActionCommon;
 }
 
 .pushed {

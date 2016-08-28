@@ -11,7 +11,7 @@ export default class Button extends Component {
   render() {
     const { styles, options, children, className, clickFunction, label, disabled, onTouchTap } = this.props;
     var buttonClass;
-    
+
     if (options) {
       switch(true) {
         case options.emphasize: {
@@ -36,6 +36,10 @@ export default class Button extends Component {
         break;
         case options.floatingAction: {
             buttonClass = styles.floatingAction;
+          }
+        break;
+        case options.floatingActionGreen: {
+            buttonClass = styles.floatingActionGreen;
           }
         break;
         default: {

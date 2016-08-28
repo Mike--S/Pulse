@@ -25,7 +25,9 @@ export default class Diary extends Component {
     update: PropTypes.func,
     handlePostForm: PropTypes.func,
     handlePostFormSelf: PropTypes.func,
-    diaryData: PropTypes.object
+    getParameters: PropTypes.func,
+    diaryData: PropTypes.object,
+    diaryParams: PropTypes.object
   };
 
 
@@ -34,8 +36,10 @@ export default class Diary extends Component {
       update: this.updateTimeParam,
       handlePostForm: this.handlePostForm,
       handlePostFormSelf: this.handlePostFormSelf,
-      diaryData: this.props.diary.data ? this.props.diary.data : {}
-    };
+      diaryData: this.props.diary.data ? this.props.diary.data : {},
+      getParameters: this.props.loadParams,
+      diaryParams: this.props.diary.parameters ? this.props.diary.parameters : {}
+    }
   };
 
   constructor() {

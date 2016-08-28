@@ -81,6 +81,12 @@ export function loadDiary(getParams) {
   }
 }
 
+export function loadParams() {
+  return (dispatch) => {
+    return dispatch(callApi.fetch('GET', API_ROOT + 'parameters', types.FETCH_PARAMETERS, types.FETCH_PARAMETERS_SUCCESS, types.FETCH_PARAMETERS_FAILURE));
+  }
+}
+
 export function postDiaryParams(postDiaryData) {
   return (dispatch) => {
     return dispatch(callApi.post('POST', API_ROOT + 'control', types.POST_DIARY_DATA, types.POST_DIARY_DATA_SUCCESS, types.POST_DIARY_DATA_FAILURE, postDiaryData));

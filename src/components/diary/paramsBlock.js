@@ -21,7 +21,8 @@ export default class ParamsBlock extends Component {
   static contextTypes = {
     diaryData: PropTypes.object.isRequired,
     handlePostForm: PropTypes.func,
-    handlePostFormSelf: PropTypes.func
+    handlePostFormSelf: PropTypes.func,
+    getParameters: PropTypes.func.isRequired
   };
 
   static childContextTypes = {
@@ -70,7 +71,8 @@ export default class ParamsBlock extends Component {
       modalDialog:{
         open : false
       }
-    })
+    });
+    
   }
 
   render() {
