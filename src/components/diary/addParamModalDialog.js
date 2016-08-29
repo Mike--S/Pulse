@@ -16,6 +16,7 @@ import ExpandTransition from 'material-ui/internal/ExpandTransition';
 
 import Button from '../button/button';
 import {Col, FlexContainer} from '../layout/flex';
+import Icon from '../materialUi/icons/icons';
 
 import ap from './addParamModalDialog.scss';
 import u from '../../assets/utils.scss';
@@ -129,8 +130,14 @@ export default class AddParamModalDialog extends Component {
     else {
       type = 'day';
     }
-    this.state.timeValues[index] = {type: type, value: payload};
-    this.setState({timeValues: this.state.timeValues});
+    this.setState({
+      timeValues: this.state.timeValues.map((timeValue, innerIndex)=> {
+        if (index === innerIndex) {
+          return {type: type, value: payload}
+        }
+        return timeValue;
+      })
+    });
   }
 
   handleAddTime() {
@@ -167,7 +174,15 @@ export default class AddParamModalDialog extends Component {
             <MenuItem value={"exactTime"} primaryText={"конкретное время"} />
           </SelectField>
         </Col>
-        <Col md={5}>
+        <Col md={1}>
+          {
+            index !== 0 &&
+            <div className={ap.removeCol} onClick={this.handleDeleteTime.bind(this, index)}>
+              <Icon iconName={'remove'} />
+            </div>
+          }
+        </Col>
+        <Col md={6}>
         {type && type === 'time' &&
           <TimePicker
             onChange={this.handleParamTimeChange.bind(this, index)}
@@ -176,14 +191,6 @@ export default class AddParamModalDialog extends Component {
             value={typeof value === 'object' ? value : {}}
           />
         }
-        </Col>
-        <Col md={2}>
-          {
-            index !== 0 &&
-            <Button options={{floatingAction: true}} onTouchTap={this.handleDeleteTime.bind(this, index)}>
-              <span style={{fontWeight: 'bold'}}>-</span>
-            </Button>
-          }
         </Col>
       </FlexContainer>
   }
@@ -234,7 +241,8 @@ export default class AddParamModalDialog extends Component {
 
   isNextButtonDisabled() {
     const {stepIndex} = this.state;
-    return stepIndex === 0 && this.state.paramName === "";
+    return stepIndex === 0 && this.state.paramName === "" ||
+      stepIndex === 1 && this.state.paramType === null
   }
 
   renderContent(styles) {
