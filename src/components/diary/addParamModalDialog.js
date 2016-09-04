@@ -33,6 +33,14 @@ export default class AddParamModalDialog extends Component {
     diaryParams: PropTypes.object
   };
 
+  dayValues = {
+    MORNING: 'утро',
+    DAY: 'день',
+    EVENING: 'вечер',
+    NIGHT: 'ночь',
+    EXACTTIME: 'конкретное время'
+  };
+
   constructor(props) {
     super(props);
 
@@ -46,6 +54,7 @@ export default class AddParamModalDialog extends Component {
     this.handleParamNameChange = this.handleParamNameChange.bind(this);
     this.handleParamTimeChange = this.handleParamTimeChange.bind(this);
     this.handleAddTime = this.handleAddTime.bind(this);
+    this.getTimeOptions = this.getTimeOptions.bind(this);
     this.isNextButtonDisabled = this.isNextButtonDisabled.bind(this);
     this.closeFunction = this.closeFunction.bind(this);
   }
@@ -110,21 +119,29 @@ export default class AddParamModalDialog extends Component {
   }
 
   handleParamNameChange(value, data) {
+    var isParameterNew = !_.includes(this.context.diaryParams.names, value);
     this.setState({
       paramName: value,
-      isParameterNew: !_.includes(this.context.diaryParams.data, value)
+      isParameterNew: isParameterNew,
+      existedTimeValues: isParameterNew ? []: _.filter(this.context.diaryParams.data, {name: value})[0].existedTimeValues
     });
   }
 
   handleParamTimeChange(index, temp, value) {
-    this.state.timeValues[index] = {type: 'time', value: value};
-    this.setState({timeValues: this.state.timeValues});
+    this.setState({
+      timeValues: this.state.timeValues.map((timeValue, innerIndex)=> {
+        if (index === innerIndex) {
+          return {type: 'time', value: value}
+        }
+        return timeValue;
+      })
+    });
   }
 
   handleParamDayChange(index, event, key, payload) {
     var type;
 
-    if(payload === 'exactTime') {
+    if(payload === 'EXACTTIME') {
       type = 'time';
     }
     else {
@@ -156,22 +173,32 @@ export default class AddParamModalDialog extends Component {
     });
   }
 
+  getTimeOptions() {
+    var self = this;
+    return Object.keys(this.dayValues).map(key => {
+      if(!self.state.isParameterNew &&
+        _.includes(this.state.existedTimeValues, key)) {
+        return;
+      }
+      return <MenuItem disabled={key !== 'EXACTTIME' && _.includes(this.state.timeValues.map(timeValue => timeValue.value), key)}
+                       key={key}
+                       value={key}
+                       primaryText={this.dayValues[key]} />
+    });
+  }
+
   getTimeRow(timeData, index) {
-    let type = timeData && timeData.type;
-    let value = timeData && timeData.value;
+    var type = timeData && timeData.type;
+    var value = timeData && timeData.value;
 
     return <FlexContainer key={'timeRow' + index} alignItems={'center'}>
         <Col md={5}>
           <SelectField
             onChange={this.handleParamDayChange.bind(this, index)}
             hintText={'время суток...'}
-            value={type === 'time' ? 'exactTime' : value}
+            value={type === 'time' ? 'EXACTTIME' : value}
             >
-            <MenuItem value={"morning"} primaryText={"утро"} />
-            <MenuItem value={"day"} primaryText={"день"} />
-            <MenuItem value={"evening"} primaryText={"вечер"} />
-            <MenuItem value={"night"} primaryText={"ночь"} />
-            <MenuItem value={"exactTime"} primaryText={"конкретное время"} />
+            {this.getTimeOptions(index)}
           </SelectField>
         </Col>
         <Col md={1}>
@@ -202,7 +229,7 @@ export default class AddParamModalDialog extends Component {
             <AutoComplete
               hintText="поиск параметра..."
               filter={AutoComplete.caseInsensitiveFilter}
-              dataSource={this.context.diaryParams.data || []}
+              dataSource={this.context.diaryParams.names || []}
               maxSearchResults={4}
               onUpdateInput={this.handleParamNameChange}
               onNewRequest={this.handleParamNameChange}

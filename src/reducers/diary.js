@@ -36,7 +36,8 @@ export default createReducer(initialState, {
       ...state,
       parameters: {
         isFetching: false,
-        data: data.payload
+        data: data.payload,
+        names: data.payload.map(param => param.name)
       }
     };
   },
