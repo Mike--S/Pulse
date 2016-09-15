@@ -1,16 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import without from 'lodash.without';
+import BaseForm from '../base/form';
 
-export default class Form extends Component {
+export default class Form extends BaseForm {
   static propTypes = {
     blockParams: PropTypes.array.isRequired
-  };
-
-  static childContextTypes = {
-    submitForm: PropTypes.func,
-    registerValidation: PropTypes.func,
-    isFormValid: PropTypes.func
   };
 
   static contextTypes = {
@@ -19,13 +14,6 @@ export default class Form extends Component {
 
   constructor() {
     super();
-    this.validations = [];
-
-    this.getTimeDataByParamIds = this.getTimeDataByParamIds.bind(this);
-    this.registerValidation = this.registerValidation.bind(this);
-    this.removeValidation = this.removeValidation.bind(this);
-    this.isFormValid = this.isFormValid.bind(this);
-    this.submitForm = this.submitForm.bind(this);
   }
 
   submitForm(event) {
@@ -45,30 +33,6 @@ export default class Form extends Component {
       return _.includes(ids, time.id.split('_')[0]);
     });
   }
-
-  registerValidation(isValidFunc) {
-    this.validations = [...this.validations, isValidFunc];
-    return this.removeValidation.bind(null, isValidFunc);
-  }
-
-  removeValidation(ref) {
-    this.validations = without(this.validations, ref);
-  }
-
-  isFormValid(showErrors) {
-    return this.validations.reduce(
-      (memo, isValidFunc) => {
-        return isValidFunc(showErrors) && memo
-      }, true)
-  }
-
-  getChildContext() {
-    return {
-      registerValidation: this.registerValidation,
-      isFormValid: this.isFormValid,
-      submitForm: this.submitForm
-    };
-  };
 
   render() {
     const { styles, className } = this.props;

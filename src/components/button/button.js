@@ -30,7 +30,7 @@ export default class Button extends Component {
             buttonClass = styles.flat;
           }
         break;
-        case options.ftatGreen: {
+        case options.flatGreen: {
             buttonClass = styles.flatGreen;
           }
         break;

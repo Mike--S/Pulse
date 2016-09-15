@@ -13,18 +13,26 @@ export default class Main extends Component {
   };
 
   render() {
-    const { styles, children } = this.props;
-
-    return (
-      <div>
-        <Header />
-        <LeftMenu />
-        <div className={styles.content}>
-          <Container main={true}>
-            {children}
-          </Container>
+    const { styles, children, location } = this.props;
+    if (location.pathname === '/signIn') {
+      return (
+        <Container main={true}>
+          {children}
+        </Container>
+      )
+    }
+    else {
+      return (
+        <div>
+          <Header />
+          <LeftMenu />
+          <div className={styles.content}>
+            <Container main={true}>
+              {children}
+            </Container>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
