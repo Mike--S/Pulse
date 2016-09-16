@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import without from 'lodash.without';
-import BaseForm from '../base/form';
+import BaseForm from '../Base/form';
 
 export default class Form extends BaseForm {
   static propTypes = {
