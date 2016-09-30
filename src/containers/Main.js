@@ -2,7 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import Header from './header/Header';
 import LeftMenu from './LeftMenu/LeftMenu';
 import Container from '../components/layout/container'
+import Spinner from '../components/spinner';
 import cssModules from 'react-css-modules';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as patientActions from '../actions/patient/patient';
+import * as authActions from '../actions/auth';
 import styles from '../assets/index.scss';
 
 @cssModules(styles)
@@ -12,8 +17,12 @@ export default class Main extends Component {
     children: PropTypes.any.isRequired
   };
 
+  componentWillMount() {
+    this.props.loadPatient({name: authActions.isLoggedIn()});
+  }
+
   render() {
-    const { styles, children, location } = this.props;
+    const { styles, children, location, user } = this.props;
     if (location.pathname === '/signIn') {
       return (
         <Container main={true}>
@@ -22,17 +31,40 @@ export default class Main extends Component {
       )
     }
     else {
-      return (
-        <div>
-          <Header />
-          <LeftMenu />
-          <div className={styles.content}>
-            <Container main={true}>
-              {children}
-            </Container>
+      if (!user || user.isFetching) {
+        return (
+          <div>
+            <Spinner />
           </div>
-        </div>
-      );
+        )
+      }
+      else {
+        return (
+          <div>
+            <Header />
+            <LeftMenu />
+            <div className={styles.content}>
+              <Container main={true}>
+                {children}
+              </Container>
+            </div>
+          </div>
+        );
+      }
     }
   }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    user: state.patient
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(patientActions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
+

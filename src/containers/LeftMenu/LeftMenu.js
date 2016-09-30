@@ -32,10 +32,6 @@ class TopMenu extends Component {
     ];
   }
 
-  componentWillMount() {
-    this.props.loadPatient({name: authActions.isLoggedIn()});
-  }
-
   componentWillReceiveProps(nextProps) {
     //console.log(nextProps);
   }

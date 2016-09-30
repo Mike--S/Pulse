@@ -14,9 +14,9 @@ export default class TopMenu extends Component {
     return (
       <nav className={styles.nav}>
         <Link className={styles.link} to={'/'}>Журнал</Link>
-        <Link className={styles.link} to={'/'}>Дневник</Link>
+        <Link className={styles.link} to={'/diary'}>Дневник</Link>
         <Link className={styles.link} to={'/'}>Карточка</Link>
-        <Link className={styles.link} to={'/'}>Выход</Link>
+        <Link className={styles.link} to={'/logout'}>Выход</Link>
       </nav>
     );
   }

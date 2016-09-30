@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import {isLoggedIn} from '../actions/auth';
+import {isLoggedIn, logout} from '../actions/auth';
 
 import App from '../containers/App';
 import AnotherPage from '../containers/AnotherPage';
@@ -23,12 +23,18 @@ const onIndex = (nextState, replace) => {
   }
 };
 
+const onLogout = (nextState, replace) => {
+  logout();
+  return replace(null, '/signIn');
+};
+
 export default (
   <Route path="/" component={App}>
     <IndexRoute onEnter={onIndex}/>
     <Route path="/signIn" component={SignIn}/>
     <Route path="/diary" component={Diary} onEnter={requireAuth}/>
     <Route path="/another" component={AnotherPage} />
+    <Route path="/logout" onEnter={onLogout} />
     <Route path="*" component={NotFoundPage} />
   </Route>
 );
