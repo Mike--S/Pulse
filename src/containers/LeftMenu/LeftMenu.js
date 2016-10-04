@@ -2,9 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cssModules from 'react-css-modules';
-import * as types from '../../actions/actionTypes';
 import * as patientActions from '../../actions/patient/patient';
-import * as authActions from '../../actions/auth';
+import _ from 'lodash';
 
 import { Link } from 'react-router';
 import Button from '../../components/button/button';
@@ -40,41 +39,35 @@ class TopMenu extends Component {
     const { styles, patient } = this.props;
     let lm = styles[0];
     let isFetching = patient && patient.isFetching;
-    let type = patient && patient.type;
-    let doctors = patient && patient.doctors;
-    let patients = patient && patient.patients;
-    let devices = patient && patient.devices;
+    var type, doctors, patients, devices;
+    if (patient) {
+      type = patient.type;
+      doctors = patient.doctors;
+      patients = patient.patients;
+      devices = patient.devices;
+    }
 
-    if (isFetching === undefined || isFetching) {
-      return(
+    if (type === 'doctor') {
+      return (
         <nav className={lm.leftMenu}>
-          <h1>Loading...</h1>
+          <input type="search" placeholder="Поиск"/>
+          <ButtonsBlock role={'Patient'} title={'Собственный пациенты'} buttonData={patients.selfPatients || []}/>
+          <ButtonsBlock role={'Patient'} title={'Заявки на лечащего врача'} buttonData={patients.request || []}/>
+          <ButtonsBlock role={'Patient'} title={'Пациенты на консультации'} buttonData={patients.onConsultation || []}/>
         </nav>
       )
     }
     else {
-      if (type === 'doctor') {
-        return (
-          <nav className={lm.leftMenu}>
-            <input type="search" placeholder="Поиск"/>
-            <ButtonsBlock role={'Patient'} title={'Собственный пациенты'} buttonTitles={patients.selfPatients || []}/>
-            <ButtonsBlock role={'Patient'} title={'Заявки на лечащего врача'} buttonTitles={patients.request || []}/>
-            <ButtonsBlock role={'Patient'} title={'Пациенты на консультации'} buttonTitles={patients.onConsultation || []}/>
-          </nav>
-        )
-      }
-      else {
-        return (
-          <nav className={lm.leftMenu}>
-            <input type="search" placeholder="Поиск"/>
-            <ButtonsBlock role={'Patient'} title={'Лечащий врач'} buttonTitles={doctors && doctors.therapist || []}/>
-            <ButtonsBlock role={'Patient'} title={'Врачи консультанты'} buttonTitles={doctors && doctors.consultants || []}/>
-            <Button options={{emphasize: true}}>Добавить врача</Button>
-            <ButtonsBlock title={'Подключить услуги'} buttonTitles={this.state.services}/>
-            <DropList title="Устройства" devices={devices} buttonText="Добавить устройство"/>
-          </nav>
-        );
-      }
+      return (
+        <nav className={lm.leftMenu}>
+          <input type="search" placeholder="Поиск"/>
+          <ButtonsBlock role={'Patient'} title={'Лечащий врач'} buttonData={doctors && doctors.therapist || []}/>
+          <ButtonsBlock role={'Patient'} title={'Врачи консультанты'} buttonData={doctors && doctors.consultants || []}/>
+          <Button options={{emphasize: true}}>Добавить врача</Button>
+          <ButtonsBlock role={'Devices'} title={'Подключить услуги'} buttonData={this.state.services}/>
+          <DropList title="Устройства" devices={devices} buttonText="Добавить устройство"/>
+        </nav>
+      );
     }
   }
 }

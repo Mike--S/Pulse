@@ -30,7 +30,6 @@ export default class Diary extends Component {
     diaryParams: PropTypes.object
   };
 
-
   getChildContext() {
     return {
       update: this.updateTimeParam,
@@ -86,10 +85,6 @@ export default class Diary extends Component {
     })
   }
 
-  componentWillMount() {
-    this.props.loadDiary();
-  }
-
   render() {
     const { styles, diary } = this.props;
     const d = styles[0];
@@ -99,7 +94,10 @@ export default class Diary extends Component {
     let date = diary.date;
     let isFetching = diary && diary.isFetching;
 
-    if (isFetching === undefined || isFetching) {
+    if (isFetching === undefined) {
+      this.props.loadDiary();
+    }
+    else if (isFetching) {
       return(<h2>Loading...</h2>)
     }
     else {
@@ -156,7 +154,7 @@ export default class Diary extends Component {
 
             {recommendations && recommendations[0] &&
               <div className={d.textBlock}>
-                <h3 className={d.subHeader}>{'Рекомендации от ' + new Date(recommendations[0].setDate).toLocaleDateString('ru', {month: 'long', year: 'numeric', day: 'numeric'})}</h3>
+                <h3 className={d.subHeader}>{'Рекомендации от ' + recommendations[0].setDate}</h3>
 
                 <p className={d.innerText}>
                   {recommendations[0].text}

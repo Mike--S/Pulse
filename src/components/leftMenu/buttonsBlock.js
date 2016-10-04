@@ -14,29 +14,36 @@ export default class ButtonsBlock extends Component {
   };
 
   render() {
-    const { styles, buttonTitles, title, role } = this.props;
+    const { styles, buttonData, title, role } = this.props;
 
     let bb = styles[0];
     let utils = styles[1];
 
-    let buttonsList = buttonTitles.map((title, index)=>{
+    let buttonsList = buttonData.map((data, index) => {
       switch(role) {
         case 'Patient':
           return (
             <li key={"buttonItem" + index} className={bb.buttonItem}>
-              <MenuBlock role="Patient" title={title}/>
+              <MenuBlock role="Patient" data={data}/>
+            </li>
+          );
+          break;
+        case 'Devices':
+          return (
+            <li key={"buttonItem" + index} className={bb.buttonItem}>
+              <Button>{data}</Button>
             </li>
           );
           break;
         default :
           return (
             <li key={"buttonItem" + index} className={bb.buttonItem}>
-              <Button>{title}</Button>
+              <Button>{data.title}</Button>
             </li>
           )
       }
     });
-    if (!buttonTitles.length) {
+    if (!buttonData.length) {
       return(
         <div></div>
       )

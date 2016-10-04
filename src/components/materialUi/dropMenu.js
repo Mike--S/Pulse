@@ -5,6 +5,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import Button from '../button/button';
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
 //@cssModules()
 export default class MenuBlock extends Component {
@@ -27,7 +28,7 @@ export default class MenuBlock extends Component {
 
     this.setState({
       open: true,
-      anchorEl: event.currentTarget,
+      anchorEl: event.currentTarget
     });
   };
 
@@ -38,28 +39,42 @@ export default class MenuBlock extends Component {
   };
 
   render() {
-    const {title} = this.props;
+    const {data, role} = this.props;
+    const yesNoMenuItems = [
+      <MenuItem primaryText="Подтвердить" />,
+      <MenuItem primaryText="Отказаться" />
+    ];
 
-    return(
-      <div>
-        <Button onTouchTap={this.handleTouchTap}>{title}</Button>
-        <Popover
-          open={this.state.open}
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-          targetOrigin={{horizontal: 'left', vertical: 'top'}}
-          onRequestClose={this.handleRequestClose}
-        >
-          <Menu width={'200px'} desktop={true}>
-            <MenuItem primaryText="Посмотреть анкету" />
-            <MenuItem primaryText="Приглашение на прием 31.10.14 10:30" />
-            <MenuItem primaryText="Записаться на прием" />
-            <Divider />
-            <MenuItem primaryText="Подать заявку на лечащего врача" disabled={true} />
-            <MenuItem primaryText="Отказаться от лечащего врача" />
-          </Menu>
-        </Popover>
-      </div>
-    )
+    switch (role) {
+      case 'Patient':
+        return(
+          <div>
+            <Button onTouchTap={this.handleTouchTap}>{data.title}</Button>
+            <Popover
+              open={this.state.open}
+              anchorEl={this.state.anchorEl}
+              anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+              targetOrigin={{horizontal: 'left', vertical: 'top'}}
+              onRequestClose={this.handleRequestClose}
+            >
+              <Menu desktop={true}>
+                <MenuItem primaryText={'Посмотреть анкету ' + data.id } />
+                {data.invitation && data.invitation.date ?
+                  <MenuItem primaryText={'Приглашение на прием ' + data.invitation.date }
+                  rightIcon={<ArrowDropRight />}
+                  menuItems={yesNoMenuItems}/> : ''
+                }
+                <MenuItem primaryText="Записаться на прием" />
+                <Divider />
+                <MenuItem primaryText="Отказаться от лечащего врача" />
+              </Menu>
+            </Popover>
+          </div>
+        );
+        break;
+      default:
+        return (<Button onTouchTap={this.handleTouchTap}>{title}</Button>)
+    }
+
   }
 }
