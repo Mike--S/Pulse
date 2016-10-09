@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 
-import patient from './patient';
+import user from './user';
 import diary from './diary';
 
 const rootReducer = combineReducers({
-  patient,
+  user,
   diary,
   routing
 });

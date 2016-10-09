@@ -20,12 +20,12 @@ export default createReducer(initialState, {
       isFetching: false
     };
   },
-  [types.FETCH_PATIENT_DATA](state) {
+  [types.FETCH_USER_DATA](state) {
     return {
       isFetching: true
     };
   },
-  [types.FETCH_PATIENT_DATA_SUCCESS](state, data) {
+  [types.FETCH_USER_DATA_SUCCESS](state, data) {
     return {
       type: data.payload.type,
       fio: data.payload.fio,

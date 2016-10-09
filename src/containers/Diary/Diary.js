@@ -173,7 +173,8 @@ export default class Diary extends Component {
 
 function mapStateToProps(state) {
   return {
-    diary: state.diary
+    diary: state.diary,
+    user: state.user
   }
 }
 

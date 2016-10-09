@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cssModules from 'react-css-modules';
-import * as patientActions from '../../actions/patient/patient';
+import * as userActions from '../../actions/user/user';
 import _ from 'lodash';
 
 import { Link } from 'react-router';
@@ -74,12 +74,12 @@ class TopMenu extends Component {
 
 function mapStateToProps(state) {
   return {
-    patient: state.patient
+    patient: state.user
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(patientActions, dispatch)
+  return bindActionCreators(userActions, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopMenu);

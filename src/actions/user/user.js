@@ -4,7 +4,7 @@ import * as callApi from '../common';
 
 const API_ROOT = common.apiUrl;
 
-export function loadPatient(getParams) {
+export function loadUser(getParams) {
   var memo = '?';
   if (typeof getParams == 'object') {
     for (let param in getParams) {
@@ -13,6 +13,6 @@ export function loadPatient(getParams) {
     }
   }
     return (dispatch) => {
-    return dispatch(callApi.fetch('GET', API_ROOT + 'userData' + memo, types.FETCH_PATIENT_DATA, types.FETCH_PATIENT_DATA_SUCCESS, types.FETCH_PATIENT_DATA_FAILURE));
+    return dispatch(callApi.fetch('GET', API_ROOT + 'userData' + memo, types.FETCH_USER_DATA, types.FETCH_USER_DATA_SUCCESS, types.FETCH_USER_DATA_FAILURE));
   }
 }

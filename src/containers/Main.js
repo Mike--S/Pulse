@@ -6,7 +6,7 @@ import Spinner from '../components/spinner';
 import cssModules from 'react-css-modules';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as patientActions from '../actions/patient/patient';
+import * as patientActions from '../actions/user/user';
 import * as authActions from '../actions/auth';
 import styles from '../assets/index.scss';
 
@@ -18,7 +18,7 @@ export default class Main extends Component {
   };
 
   componentWillMount() {
-    this.props.loadPatient({name: authActions.isLoggedIn()});
+    this.props.loadUser({name: authActions.isLoggedIn()});
   }
 
   render() {
@@ -58,7 +58,7 @@ export default class Main extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.patient
+    user: state.user
   }
 }
 
