@@ -5,7 +5,7 @@ import * as callApi from './common';
 const API_ROOT = common.apiUrl;
 
 export function isLoggedIn() {
-  return localStorage.getItem('userName');
+  return localStorage.getItem('userName') || "";
 }
 
 export function logout() {

@@ -9,7 +9,7 @@ export function loadUser(getParams) {
   if (typeof getParams == 'object') {
     for (let param in getParams) {
       let value = getParams[param];
-      memo += param + '=' + value + '&';
+      memo += value ? param + '=' + value + '&' : '';
     }
   }
     return (dispatch) => {
