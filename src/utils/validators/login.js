@@ -11,8 +11,8 @@ export function validateLogin(value, loginField) {
   else {
     switch(loginField) {
       case 'login': {
-        regEXP = /^[a-z|A-Z]{1}[\w|_]{2,20}$/g;
-        return regEXP.test(value) ? [] : ['логин должен начинаться с буквы и быть длиной от 3 до 21'];
+        regEXP =/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        return regEXP.test(value) ? [] : ['неправильный почтовый адрес'];
       }
         break;
       case 'password': {

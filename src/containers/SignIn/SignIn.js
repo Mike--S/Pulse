@@ -80,14 +80,21 @@ export default class SignIn extends Component {
     this.onBlur();
 
     if (this.isFormValid()) {
-      localStorage.setItem('userName', this.state.login.value);
+      this.props.postLoginData({email: this.state.login.value, password: this.state.password.value});
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && !_.isEqual(this.props, nextProps)
+      && !_.isEmpty(nextProps.user)
+      && nextProps.user.success) {
+      this.props.login(nextProps.user);
       this.props.history.push('/diary');
-      this.props.postLoginData({login: this.state.login.value, password: this.state.password.value});
     }
   }
 
   render() {
-    const { styles } = this.props;
+    const { styles, user } = this.props;
     return (
       <form onSubmit={this.onSubmit} className={styles.form}>
         <div>Авторизация</div>
@@ -114,7 +121,12 @@ export default class SignIn extends Component {
               </div>
             ) : null}/>
         </div>
-        <div className={styles.buttonRow}>
+        {user && user.errorMessage &&
+          <div className={styles.row}>
+            <span className={styles.error}>{user.errorMessage}</span>
+          </div>
+        }
+        <div className={styles.row}>
           <Button options={{inlineGreen: true}}>Войти</Button>
         </div>
       </form>
@@ -124,7 +136,7 @@ export default class SignIn extends Component {
 
 function mapStateToProps(state) {
   return {
-    state
+    user: state.user
   }
 }
 

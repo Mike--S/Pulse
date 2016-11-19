@@ -32,6 +32,8 @@ $border-spacing: 5px;
 
 .mainContainer {
   composes: container;
+  display: flex;
+  height: 100vh;
 }
 
 .flexContainer {

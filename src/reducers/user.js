@@ -12,13 +12,21 @@ export default createReducer(initialState, {
   },
   [types.POST_LOGIN_DATA_SUCCESS](state, data) {
     return {
-      type: data.payload.type,
-      fio: data.payload.fio,
+      type: data.payload.role,
+      fio: data.payload.first_name + ' ' + data.payload.last_name,
       doctors: data.payload.doctors,
       patients: data.payload.patients,
       devices: data.payload.devices,
-      isFetching: false
+      isFetching: false,
+      success: true,
+      sessionToken: data.payload.session_token
     };
+  },
+  [types.POST_LOGIN_DATA_FAILURE](state, data) {
+    return {
+      isFetching: false,
+      errorMessage: _.get(data, 'payload.response.error.message', 'ошибка')
+    }
   },
   [types.FETCH_USER_DATA](state) {
     return {
@@ -28,8 +36,8 @@ export default createReducer(initialState, {
   [types.FETCH_USER_DATA_SUCCESS](state, data) {
     if (data.payload) {
       return {
-        type: data.payload.type,
-        fio: data.payload.fio,
+        type: data.payload.role,
+        fio: data.payload.first_name + ' ' + data.payload.last_name,
         doctors: data.payload.doctors,
         patients: data.payload.patients,
         devices: data.payload.devices,

@@ -1,12 +1,13 @@
 .form {
-  position: absolute;
-  left: 50%;
-  top: 50%;
   background: #fff;
   padding: 20px;
-  transform: translate3d(-50%, -50%, 0);
+  margin: auto;
 }
 
-.buttonRow {
+.row {
   margin-top: 10px;
+}
+
+.error {
+  color: red;
 }

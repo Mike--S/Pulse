@@ -1,12 +1,21 @@
 import { CALL_API } from 'redux-api-middleware';
 import { normalize } from 'normalizr';
 import _ from 'lodash';
+import config from '../config/common.json';
 
-export function fetch(method, endpoint, requestType, successType, failureType, schema) {
+export function fetch(method, endpoint, requestType, successType, failureType, schema, sessionToken) {
+  var headers = {
+    "X-DreamFactory-API-Key": config.apiKey
+  };
+  if(sessionToken) {
+    headers["X-DreamFactory-Session-Token"] = sessionToken;
+  }
+
   return {
     [CALL_API]: {
       endpoint: endpoint,
       method: method,
+      headers,
       types: [
         {
           type: requestType
@@ -40,18 +49,23 @@ export function fetch(method, endpoint, requestType, successType, failureType, s
   }
 }
 
-export function post(method, endpoint, requestType, successType, failureType, postData) {
+export function post(method, endpoint, requestType, successType, failureType, postData, sessionToken) {
+  var headers = {
+    "content-type": "application/json; charset=utf-8",
+    "X-DreamFactory-API-Key": config.apiKey
+  };
+  if(sessionToken) {
+    headers["X-DreamFactory-Session-Token"] = sessionToken
+  }
   return {
     [CALL_API]: {
       endpoint: endpoint,
       method: method,
       body: JSON.stringify(postData),
-      headers: {
-        "content-type": "application/json"
-      },
+      headers,
       types: [
         {
-          type: requestType,
+          type: requestType
         },
         {
           type: successType,

@@ -1,4 +1,6 @@
 {
+  "apiUrl3": "https://rocky-dawn-46322.herokuapp.com/api/",
   "apiUrl2": "http://localhost:8080/api/",
-  "apiUrl": "https://rocky-dawn-46322.herokuapp.com/api/"
+  "apiUrl": "http://104.155.84.250/api/v2/",
+  "apiKey": "0a860d64d176f3cc1283b1f218c569db0f29696cb1e323c70e496c4d15cc6cdd"
 }
