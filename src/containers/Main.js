@@ -17,13 +17,18 @@ export default class Main extends Component {
     children: PropTypes.any.isRequired
   };
 
+  static authPaths = [
+    '/signIn',
+    '/registration'
+  ];
+
   componentWillMount() {
     this.props.loadUser({name: authActions.isLoggedIn()});
   }
 
   render() {
     const { styles, children, location, user } = this.props;
-    if (location.pathname === '/signIn') {
+    if (_.includes(Main.authPaths, location.pathname)) {
       return (
         <Container main={true}>
           {children}

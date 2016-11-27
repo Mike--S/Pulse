@@ -5,7 +5,8 @@ import {isLoggedIn, logout} from '../actions/auth';
 import Main from '../containers/Main';
 import AnotherPage from '../containers/AnotherPage';
 import NotFoundPage from '../containers/NotFoundPage';
-import SignIn from '../containers/SignIn/SignIn';
+import SignIn from '../containers/Auth/SignIn';
+import Registration from '../containers/Auth/Registration';
 import Diary from '../containers/Diary/Diary';
 
 const requireAuth = (nextState, replace) => {
@@ -32,6 +33,7 @@ export default (
   <Route path="/" component={Main}>
     <IndexRoute onEnter={onIndex}/>
     <Route path="/signIn" component={SignIn}/>
+    <Route path="/Registration" component={Registration}/>
     <Route path="/diary" component={Diary} onEnter={requireAuth}/>
     <Route path="/another" component={AnotherPage} />
     <Route path="/logout" onEnter={onLogout} />

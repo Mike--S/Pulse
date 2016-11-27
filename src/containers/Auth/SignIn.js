@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 
 import cssModules from 'react-css-modules';
-import styles from './SignIn.scss';
+import styles from './Auth.scss';
 import TextField from 'material-ui/TextField';
 import Button from '../../components/button/button';
 import * as validators from '../../utils/validators/login';
@@ -66,11 +67,11 @@ export default class SignIn extends Component {
     this.setState({
       login: {
         ...this.state.login,
-        errors: validators.validateLogin(this.state.login.value, 'login')
+        errors: validators.validateAuth(this.state.login.value, 'email')
       },
       password: {
         ...this.state.password,
-        errors: validators.validateLogin(this.state.password.value, 'password')
+        errors: validators.validateAuth(this.state.password.value, 'password')
       }
     });
   }
@@ -128,6 +129,12 @@ export default class SignIn extends Component {
         }
         <div className={styles.row}>
           <Button options={{inlineGreen: true}}>Войти</Button>
+        </div>
+        <div className={styles.row}>
+          <Link to={'/registration'}>Регистрация для врачей</Link>
+        </div>
+        <div className={styles.row}>
+          <Link to={'/registration'}>Регистрация для пациентов</Link>
         </div>
       </form>
     )

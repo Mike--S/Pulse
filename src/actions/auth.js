@@ -18,9 +18,21 @@ export function postLoginData(loginData) {
   }
 }
 
+export function postRegistrationData(registrationData) {
+  return (dispatch) => {
+    return dispatch(callApi.post('POST', API_ROOT + 'user/register', types.POST_REGISTRATION_DATA, types.POST_REGISTRATION_DATA_SUCCESS, types.POST_REGISTRATION_DATA_FAILURE, registrationData));
+  }
+}
+
 export function login(data) {
   return (dispatch) => {
     localStorage.setItem('session_token', data.sessionToken);
+  };
+}
+
+export function dropRegistrationData() {
+  return (dispatch) => {
+    return dispatch({type: types.DROP_REGISTRATION_DATA});
   };
 }
 

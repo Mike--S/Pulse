@@ -54,5 +54,36 @@ export default createReducer(initialState, {
     return {
       isFetching: false
     }
+  },
+  [types.DROP_REGISTRATION_DATA](state, data) {
+    return {
+      registration: {
+        
+      }
+    }
+  },[types.POST_REGISTRATION_DATA](state, data) {
+    return {
+      registration: {
+        isFetching: true
+      }
+    }
+  },
+  [types.POST_REGISTRATION_DATA_SUCCESS](state, data) {
+    let success = data.payload && data.payload.success;
+    return {
+      registration: {
+        isFetching: false,
+        success
+      }
+    }
+  },
+  [types.POST_REGISTRATION_DATA_FAILURE](state, data) {
+    return {
+      registration: {
+        isFetching: false,
+        errorContext: _.get(data, 'payload.response.error.context', null),
+        errorMessage: _.get(data, 'payload.response.error.message', 'ошибка')
+      }
+    }
   }
 });
